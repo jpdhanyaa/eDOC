@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>eDOC</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed": "#001847",
+                        "inverse-primary": "#b2c5ff",
+                        "on-surface-variant": "#424654",
+                        "secondary-container": "#cfe6f2",
+                        "on-tertiary-fixed": "#00201a",
+                        "on-secondary-fixed": "#071e27",
+                        "on-background": "#191c1d",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e1e3e4",
+                        "tertiary": "#005145",
+                        "tertiary-fixed": "#68fadd",
+                        "primary-container": "#0056d2",
+                        "background": "#f8fafb",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e6e8e9",
+                        "on-primary-fixed-variant": "#0040a1",
+                        "inverse-on-surface": "#eff1f2",
+                        "surface-tint": "#0056d2",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#eceeef",
+                        "surface-dim": "#d8dadb",
+                        "on-secondary-container": "#526772",
+                        "primary": "#0040a1",
+                        "outline-variant": "#c3c6d6",
+                        "surface": "#f8fafb",
+                        "on-primary-container": "#ccd8ff",
+                        "tertiary-container": "#006b5c",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "on-surface": "#191c1d",
+                        "outline": "#737785",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-container": "#5cf0d4",
+                        "secondary-fixed-dim": "#b4cad6",
+                        "secondary-fixed": "#cfe6f2",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-bright": "#f8fafb",
+                        "secondary": "#4c616c",
+                        "on-secondary-fixed-variant": "#354a53",
+                        "tertiary-fixed-dim": "#44ddc1",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f2f4f5",
+                        "on-tertiary-fixed-variant": "#005145"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background: rgba(248, 250, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .step-active {
+            box-shadow: 0 0 0 4px rgba(0, 86, 210, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen">
+<header class="fixed top-0 left-0 w-full z-50 bg-[#f8fafb] dark:bg-slate-900">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold text-[#191c1d] dark:text-slate-100 font-headline">Telehealth Pulse</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#191c1d] dark:text-slate-400 opacity-70 hover:bg-[#e6e8e9] dark:hover:bg-slate-700 transition-colors font-semibold px-3 py-1 rounded-lg" href="#">Home</a>
+<a class="text-[#0056D2] dark:text-blue-400 font-semibold px-3 py-1 rounded-lg" href="#">Create Account</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-secondary hover:bg-surface-container-high p-2 rounded-full transition-colors" data-icon="help_outline">help_outline</button>
+<button class="material-symbols-outlined text-secondary hover:bg-surface-container-high p-2 rounded-full transition-colors" data-icon="info">info</button>
+</div>
+</div>
+</header>
+<main class="flex min-h-screen pt-16 md:pt-0">
+<section class="hidden lg:flex w-1/2 relative overflow-hidden bg-primary items-center justify-center">
+<img alt="Modern clinical interior" class="absolute inset-0 w-full h-full object-cover opacity-60" data-alt="Modern high-end clinical environment with soft blue tones, clean glass partitions, and a serene, professional healthcare atmosphere in soft daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYM49m77cTIuToTzr9PaYMPTDaQ3xRMtgRqh0u1ttQvLpSJr0-SDcQa5a8qmj4ZyrIMi-TqwLtDJRAo4z7UCiICEdzG2uqdWfO5ARq-B3vUaKt7DUK3ib2uvlkTi-_lJJZJ5M_hzEsoeYz4TZ4g4p5wnkkgX1czbpDInpQnAh75SkkZdi2pXSO7uLSINaBAl-aKcFYw0492dFjgwLYb3AbacGjvi25T208_BBRPtl0Z-LYC1E5SdP3GKT-_AzNC1ca_khUJ_uu7VcS"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="relative z-10 p-16 max-w-xl">
+<h1 class="font-headline font-extrabold text-5xl text-white leading-tight mb-6 tracking-tight">Your health journey begins with a single, secure step.</h1>
+<p class="text-on-primary-container text-lg leading-relaxed opacity-90 mb-12">Experience medical consultation reimagined. Join thousands of patients and providers in the most secure telehealth ecosystem available today.</p>
+<div class="grid grid-cols-2 gap-8">
+<div class="flex flex-col">
+<span class="text-white font-headline text-3xl font-bold">128-bit</span>
+<span class="text-primary-fixed text-sm">Military-Grade Encryption</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-headline text-3xl font-bold">24/7</span>
+<span class="text-primary-fixed text-sm">Critical Support Access</span>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 md:p-12 lg:p-20 bg-surface">
+<div class="w-full max-w-md">
+<div class="mb-12">
+<div class="flex justify-between mb-4">
+<span class="text-xs font-bold font-headline uppercase tracking-widest text-primary">Step 1 of 3</span>
+<span class="text-xs font-medium text-secondary">Selection</span>
+</div>
+<div class="flex gap-2">
+<div class="h-1.5 flex-1 rounded-full bg-primary"></div>
+<div class="h-1.5 flex-1 rounded-full bg-surface-container-high"></div>
+<div class="h-1.5 flex-1 rounded-full bg-surface-container-high"></div>
+</div>
+</div>
+<div class="mb-10">
+<h2 class="font-headline text-3xl font-extrabold text-on-surface mb-2">Create Account</h2>
+<p class="text-secondary font-medium">Choose how you will use the platform.</p>
+</div>
+<form class="space-y-8">
+<div class="space-y-4">
+<label class="block group cursor-pointer">
+<input checked="" class="hidden peer" name="account_type" type="radio" value="patient"/>
+<div class="flex items-center p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/15 peer-checked:border-primary peer-checked:bg-secondary-container/30 transition-all hover:bg-surface-container-low">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline font-bold text-on-surface">Patient</h3>
+<p class="text-sm text-secondary">Book appointments and access records.</p>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-primary scale-0 peer-checked:scale-100 transition-transform"></div>
+</div>
+</div>
+</label>
+<label class="block group cursor-pointer">
+<input class="hidden peer" name="account_type" type="radio" value="doctor"/>
+<div class="flex items-center p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/15 peer-checked:border-primary peer-checked:bg-secondary-container/30 transition-all hover:bg-surface-container-low">
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="medical_services">medical_services</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline font-bold text-on-surface">Doctor</h3>
+<p class="text-sm text-secondary">Consult patients and manage practice.</p>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-primary scale-0 peer-checked:scale-100 transition-transform"></div>
+</div>
+</div>
+</label>
+<label class="block group cursor-pointer">
+<input class="hidden peer" name="account_type" type="radio" value="admin"/>
+<div class="flex items-center p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/15 peer-checked:border-primary peer-checked:bg-secondary-container/30 transition-all hover:bg-surface-container-low">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-on-surface" data-icon="admin_panel_settings">admin_panel_settings</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline font-bold text-on-surface">Administrator</h3>
+<p class="text-sm text-secondary">Manage facility and staff operations.</p>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-primary scale-0 peer-checked:scale-100 transition-transform"></div>
+</div>
+</div>
+</label>
+</div>
+<div class="pt-6 flex flex-col gap-4">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white font-headline font-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95" type="button">
+                            Continue to Personal Info
+                        </button>
+<p class="text-center text-sm text-secondary">
+                            Already have an account? 
+                            <a class="text-primary font-bold hover:underline" href="login.html">Log in</a>
+</p>
+</div>
+</form>
+</div>
+</section>
+</main>
+<footer class="md:hidden w-full px-6 py-8 bg-surface-container-low border-t border-outline-variant/10">
+<div class="flex justify-between items-center text-[11px] font-medium tracking-wide text-secondary uppercase font-label">
+<a class="hover:text-primary transition-colors" href="#">Safety</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+</div>
+</footer>
+</body></html>
