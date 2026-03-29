@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>eDOC Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#d8dadb",
+              "surface-container-highest": "#e1e3e4",
+              "surface-container-high": "#e6e8e9",
+              "secondary-fixed-dim": "#b4cad6",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#c3c6d6",
+              "on-primary-container": "#ccd8ff",
+              "on-secondary-fixed": "#071e27",
+              "secondary": "#4c616c",
+              "secondary-container": "#cfe6f2",
+              "inverse-primary": "#b2c5ff",
+              "background": "#f8fafb",
+              "tertiary-fixed": "#68fadd",
+              "surface-tint": "#0056d2",
+              "secondary-fixed": "#cfe6f2",
+              "on-primary-fixed-variant": "#0040a1",
+              "primary-fixed-dim": "#b2c5ff",
+              "tertiary": "#005145",
+              "tertiary-container": "#006b5c",
+              "outline": "#737785",
+              "surface-container-lowest": "#ffffff",
+              "surface-container": "#eceeef",
+              "primary-container": "#0056d2",
+              "on-tertiary-container": "#5cf0d4",
+              "primary-fixed": "#dae2ff",
+              "surface-bright": "#f8fafb",
+              "tertiary-fixed-dim": "#44ddc1",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#eff1f2",
+              "on-secondary-container": "#526772",
+              "surface-container-low": "#f2f4f5",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-surface-variant": "#424654",
+              "on-secondary-fixed-variant": "#354a53",
+              "surface-variant": "#e1e3e4",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#2e3132",
+              "on-background": "#191c1d",
+              "surface": "#f8fafb",
+              "on-surface": "#191c1d",
+              "on-tertiary-fixed-variant": "#005145",
+              "on-primary-fixed": "#001847",
+              "error-container": "#ffdad6",
+              "primary": "#0040a1",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed": "#00201a"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background antialiased overflow-x-hidden">
+<header class="fixed top-0 w-full z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm flex justify-between items-center px-6 py-3 w-full">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tight text-blue-900 dark:text-blue-100 font-headline">TeleHealth Pulse</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 font-inter text-sm font-medium hover:bg-slate-50 transition-colors" href="#">Dashboard</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 font-inter text-sm font-medium" href="#">Verification Queue</a>
+<a class="text-slate-500 dark:text-slate-400 font-inter text-sm font-medium hover:bg-slate-50 transition-colors" href="#">Users</a>
+</nav>
+<div class="flex items-center gap-4 border-l border-slate-100 pl-6">
+<button class="p-2 rounded-full hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-slate-200 overflow-hidden ring-2 ring-white">
+<img alt="Admin Avatar" data-alt="professional headshot of a female healthcare administrator in a bright office setting with neutral colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP6lSEGxgMab3MI4VSN8PhVT7Reinh2EYsudHodr4W2D93Eu6h1LbktZAUVx4rTDZTpxSQcQwxM3BIrshrJ14Hoedo7be1wOiO6JKkNo-qEVT0Mcq2rACIfQhhY-DHt1wDWuXbHCJJdXMgs9-5UqsRcWcOh16OeZWJf7H8QnRuFHd9kMnw3MU0ZBFX15FD0PsB5wZymElA4RNMscpC_EBkvTLU0dY1B4W-MaoxBtYbAb3HpctUS6jHfks010OhslTEGhvnW1QBRKlb"/>
+</div>
+</div>
+</div>
+</header>
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 z-50 flex-col py-6 bg-slate-50 dark:bg-slate-950 border-r border-slate-100 dark:border-slate-900">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+<div>
+<h2 class="font-headline text-lg font-extrabold text-blue-800 tracking-tight">Medical Portal</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Clinical Precision</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a href="adminDashboard.html" class="px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-inter text-sm font-medium">Dashboard</span>
+</a>
+<a href="#" class="px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-inter text-sm font-medium">Patients</span>
+</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 flex items-center px-4 py-3 font-inter text-sm font-medium transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="medical_services">medical_services</span>
+                Doctors
+            </a>
+<a href="appointments.html" class="px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-inter text-sm font-medium">Appointments</span>
+</a>
+<a href="approvedoc.html" class="bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm rounded-lg px-4 py-3 flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-inter text-sm font-medium">Verification</span>
+</a>
+<a href="#" class="px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="px-4 py-6 border-t border-slate-100 dark:border-slate-800 space-y-1">
+<div class="px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-inter text-sm font-medium">Support</span>
+</div>
+<div class="px-4 py-3 text-error dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 transition-all cursor-pointer rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-inter text-sm font-medium">Logout</span>
+</div>
+</div>
+</aside>
+<main class="md:pl-64 pt-20 pb-12 min-h-screen">
+<div class="max-w-7xl mx-auto px-6 py-8">
+<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">
+<span>Admin</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-blue-600">Verification Queue</span>
+</nav>
+<h1 class="text-4xl font-headline font-extrabold text-on-background tracking-tight">Approve Doctor Registration</h1>
+<p class="mt-2 text-on-surface-variant max-w-2xl">Review pending applications from healthcare professionals. Verify credentials, medical licenses, and specialization certificates before granting access to the patient portal.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-2 bg-tertiary/10 text-tertiary px-4 py-2 rounded-full text-xs font-bold border border-tertiary/20">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-tertiary"></span>
+</span>
+                        12 Pending Verifications
+                    </span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm border border-slate-100 overflow-hidden relative">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8"></div>
+<div class="relative flex flex-col items-center text-center">
+<div class="w-32 h-32 rounded-full ring-4 ring-primary-fixed p-1 mb-6">
+<img alt="Doctor Profile" class="w-full h-full object-cover rounded-full" data-alt="close up professional portrait of a male doctor in his 40s wearing a white lab coat and stethoscope, smiling warmly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARzmbwbwLG0QKkPeMVC4-fc6cvGYyyw66hdpmpCk6SlC0A3l7TYXi3wcjRNGNMmqCiWirFpVZIlbBewz06PMPOO4F3xMsQ7QAFJ_sYsNIIPdn-UkHWv_BatiDHil2buu8tC_ViR58bq3SP2eRXeN37197t57QG0Pr1geCU8kQQYfeirMknUOuPehxoo7awPPac01IRV6xx0YmAA2TKtz9c8cVLHsTIDf4964CZxyaf2B3j0CgLZ6aqCjS0ss_4ksBrMQo_VMsLqWXv"/>
+</div>
+<h2 class="text-2xl font-headline font-bold text-blue-900">Dr. Julian Vance</h2>
+<p class="text-primary font-semibold text-sm">Senior Cardiologist</p>
+<div class="mt-4 flex gap-2">
+<span class="bg-surface-container-low text-on-surface-variant px-3 py-1 rounded-full text-xs font-medium">MD, Cardiology</span>
+<span class="bg-surface-container-low text-on-surface-variant px-3 py-1 rounded-full text-xs font-medium">12+ Years Exp</span>
+</div>
+</div>
+<div class="mt-8 space-y-4 border-t border-slate-50 pt-8">
+<div class="flex items-center justify-between text-sm">
+<span class="text-slate-400">NPI Number</span>
+<span class="font-mono font-bold text-on-surface">1988273645</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-slate-400">Applied On</span>
+<span class="font-medium">Oct 24, 2023</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-slate-400">Email</span>
+<span class="font-medium text-blue-600 underline">j.vance@medmail.com</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 sticky top-24">
+<h3 class="font-headline font-bold text-slate-900 mb-4">Verification Actions</h3>
+<label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Reviewer Comments</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary/20 text-sm p-4 placeholder-slate-400" placeholder="Enter reason for approval or detailed rejection notes..." rows="4"></textarea>
+<div class="grid grid-cols-2 gap-3 mt-6">
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm bg-error text-white hover:opacity-90 transition-opacity active:scale-[0.98]">
+<span class="material-symbols-outlined text-sm">block</span>
+                                Reject
+                            </button>
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-primary to-primary-container text-white hover:opacity-90 transition-all shadow-md active:scale-[0.98]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                Approve
+                            </button>
+</div>
+<p class="text-[10px] text-center text-slate-400 mt-4 italic">Action will be logged in the clinical audit trail.</p>
+</div>
+</div>
+<div class="lg:col-span-8 flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm border border-slate-100">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">school</span>
+<h3 class="font-headline font-bold text-xl text-blue-900">Professional Background</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-1">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Medical School</span>
+<p class="text-on-surface font-medium">Johns Hopkins University School of Medicine</p>
+</div>
+<div class="space-y-1">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Residency</span>
+<p class="text-on-surface font-medium">Mayo Clinic - Internal Medicine</p>
+</div>
+<div class="md:col-span-2 space-y-1">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Bio / Clinical Statement</span>
+<p class="text-on-surface-variant text-sm leading-relaxed">Dedicated cardiologist with over 12 years of clinical experience in interventional cardiology and chronic heart failure management. Published researcher in cardiovascular digital health applications. Committed to providing accessible, high-quality virtual care.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-low rounded-xl p-6 border border-slate-100 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary">description</span>
+</div>
+<span class="bg-tertiary-container/20 text-tertiary-fixed-dim px-2 py-1 rounded text-[10px] font-bold uppercase">Valid</span>
+</div>
+<h4 class="font-bold text-slate-900">Medical License</h4>
+<p class="text-xs text-slate-500 mb-4">Issued by State of New York Medical Board</p>
+<div class="mt-auto group cursor-pointer relative">
+<img alt="Medical License Document" class="w-full h-32 object-cover rounded-lg grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="official medical license document with seal and signature resting on a blue background in high quality detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvS_2uQU2EqHrCYKfYKhph06F0iGhFd4F2QJGsm_vTia2oM5EH6sS-pgEfAQQx8DbZdEHpmtkA1OuexLJD-Pazwnmp8Kb3ocb3Hn2cJf_I7Ogd7zVYCjppARVm1tzp8zwXDrkUJcrb0Wqg2r9SNnpoCiTAyBIzSrov2Gmrqh9YbJpTavylXWouORf5XB_cDG6i-YlT_ww_j1YlwxGgRqmhQz107foXI1rkvfzeQPvuEXu3WUAvCUEnoIQphEGbz5rVcsyLU4IosgRO"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-lg">
+<span class="bg-white text-primary px-4 py-2 rounded-full text-xs font-bold shadow-lg">Preview Document</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 border border-slate-100 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary">workspace_premium</span>
+</div>
+<span class="bg-tertiary-container/20 text-tertiary-fixed-dim px-2 py-1 rounded text-[10px] font-bold uppercase">Verified</span>
+</div>
+<h4 class="font-bold text-slate-900">ABIM Certification</h4>
+<p class="text-xs text-slate-500 mb-4">American Board of Internal Medicine (Cardiology)</p>
+<div class="mt-auto group cursor-pointer relative">
+<img alt="Board Certificate" class="w-full h-32 object-cover rounded-lg grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="elegant gold embossed medical certificate on white parchment paper with official ribbons and stamps" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe4y-m8sTMM060LGksunfC3N8cgHkS-m_oB_JzFfpOJCbauMAo3surRB-K0MLVZ4JvnsSCtIuefST0oOc_3rmp-oKz1F0MgZogiRiy-uDfNavCc7AfXBN6wVOB0AAxPloTsquIQNbkYX-Cn-oHQiQ-LAVhjwNfYGl6PVCx7s0cEfE6pUkNfMjwDTsK3c8Ju1OluK7et5FZULRCVC3xBV5drdZJn-3A_bdYP3JC2Uw6IM9ey5N5V4IeQGjkvZlIETCaLxL0VSCFJv7H"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-lg">
+<span class="bg-white text-primary px-4 py-2 rounded-full text-xs font-bold shadow-lg">Preview Document</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 border border-slate-100 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary">fingerprint</span>
+</div>
+<span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-[10px] font-bold uppercase">Identity Match</span>
+</div>
+<h4 class="font-bold text-slate-900">ID Verification</h4>
+<p class="text-xs text-slate-500 mb-4">Passport / Government Issued Identification</p>
+<div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-100">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+<span class="text-xs font-medium text-slate-700">Facial recognition match: 98.4%</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 border border-slate-100 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary">assured_workload</span>
+</div>
+<span class="bg-error-container/30 text-error px-2 py-1 rounded text-[10px] font-bold uppercase">Review Needed</span>
+</div>
+<h4 class="font-bold text-slate-900">Insurance COI</h4>
+<p class="text-xs text-slate-500 mb-4">Malpractice Liability Insurance Certificate</p>
+<button class="w-full py-2 border border-slate-200 rounded-lg text-xs font-bold hover:bg-white transition-colors">
+                                Download COI.pdf
+                            </button>
+</div>
+</div>
+<div class="bg-surface-container-highest/30 rounded-xl p-8 border border-dashed border-slate-300">
+<h3 class="font-headline font-bold text-lg text-slate-800 mb-6">Verification Checklist</h3>
+<div class="space-y-4">
+<label class="flex items-center gap-4 group cursor-pointer">
+<div class="w-6 h-6 rounded border-2 border-primary flex items-center justify-center bg-primary text-white">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="text-sm font-medium text-slate-700 group-hover:text-primary transition-colors">NPI Database check performed and matches application</span>
+</label>
+<label class="flex items-center gap-4 group cursor-pointer">
+<div class="w-6 h-6 rounded border-2 border-primary flex items-center justify-center bg-primary text-white">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="text-sm font-medium text-slate-700 group-hover:text-primary transition-colors">Educational background confirmed with clearinghouse</span>
+</label>
+<label class="flex items-center gap-4 group cursor-pointer">
+<div class="w-6 h-6 rounded border-2 border-slate-300 flex items-center justify-center bg-white group-hover:border-primary transition-colors">
+</div>
+<span class="text-sm font-medium text-slate-500 group-hover:text-slate-700 transition-colors">Sanctions check against OIG/SAM databases (Pending API)</span>
+</label>
+<label class="flex items-center gap-4 group cursor-pointer">
+<div class="w-6 h-6 rounded border-2 border-slate-300 flex items-center justify-center bg-white group-hover:border-primary transition-colors">
+</div>
+<span class="text-sm font-medium text-slate-500 group-hover:text-slate-700 transition-colors">Direct clinical reference verification (Email sent)</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<footer class="mt-12 flex flex-col md:flex-row justify-between items-center py-8 border-t border-slate-100 gap-4">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">System Secure</span>
+</div>
+<div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Version 4.2.0-Alpha</div>
+</div>
+<div class="flex items-center gap-4 text-xs text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<span class="text-slate-200">|</span>
+<a class="hover:text-primary transition-colors" href="#">Audit Logs</a>
+<span class="text-slate-200">|</span>
+<a class="hover:text-primary transition-colors" href="#">System Health</a>
+</div>
+</footer>
+</div>
+</main>
+</body></html>
