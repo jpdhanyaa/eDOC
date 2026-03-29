@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Book Consultation | TeleHealth Pulse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#d8dadb",
+              "surface-container-highest": "#e1e3e4",
+              "surface-container-high": "#e6e8e9",
+              "secondary-fixed-dim": "#b4cad6",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#c3c6d6",
+              "on-primary-container": "#ccd8ff",
+              "on-secondary-fixed": "#071e27",
+              "secondary": "#4c616c",
+              "secondary-container": "#cfe6f2",
+              "inverse-primary": "#b2c5ff",
+              "background": "#f8fafb",
+              "tertiary-fixed": "#68fadd",
+              "surface-tint": "#0056d2",
+              "secondary-fixed": "#cfe6f2",
+              "on-primary-fixed-variant": "#0040a1",
+              "primary-fixed-dim": "#b2c5ff",
+              "tertiary": "#005145",
+              "tertiary-container": "#006b5c",
+              "outline": "#737785",
+              "surface-container-lowest": "#ffffff",
+              "surface-container": "#eceeef",
+              "primary-container": "#0056d2",
+              "on-tertiary-container": "#5cf0d4",
+              "primary-fixed": "#dae2ff",
+              "surface-bright": "#f8fafb",
+              "tertiary-fixed-dim": "#44ddc1",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#eff1f2",
+              "on-secondary-container": "#526772",
+              "surface-container-low": "#f2f4f5",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-surface-variant": "#424654",
+              "on-secondary-fixed-variant": "#354a53",
+              "surface-variant": "#e1e3e4",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#2e3132",
+              "on-background": "#191c1d",
+              "surface": "#f8fafb",
+              "on-surface": "#191c1d",
+              "on-tertiary-fixed-variant": "#005145",
+              "on-primary-fixed": "#001847",
+              "error-container": "#ffdad6",
+              "primary": "#0040a1",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed": "#00201a"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-6 py-3 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tight text-blue-900 dark:text-blue-100 font-headline">TeleHealth Pulse</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-2 text-outline text-lg" data-icon="search"></span>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User Profile Avatar" data-alt="close-up portrait of a professional woman with a friendly smile, clean lighting, blurred office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHA_y4mup1j2BBywTg3lUPi4gH14P_5EMxf8xQRG_A7iK_BToXOI6JTPm2u6s7IDt6Xxm-381wIoHSf9G3Osx4Yg8n9BZFQodv5sYzrueNw1j6X-ppoXM6eg-LkNBQNFhq3nm6L7aDvnf1uFiBBuVvoijFBC-vtkdI0Vm1WZ8DMC7vEwddVcoxmRrtSyGCK7o-3OIR-5K-7WhmZ-o56HVbyA4wV_9oJpGXQUw6T40PdBRHNPHlnz23OIR7niIqU5PRw-3hLTuBc9Ew"/>
+</div>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] shadow-none"></div>
+</header>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden lg:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-slate-50 dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 py-6">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg" data-icon="medical_services" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+<div>
+<h2 class="font-headline text-lg font-extrabold text-blue-800 tracking-tight">Medical Portal</h2>
+<p class="text-[10px] uppercase tracking-widest text-outline">Clinical Precision</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-blue-600 px-6 py-3 transition-all hover:bg-blue-50/50 dark:hover:bg-blue-900/20 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-blue-600 px-6 py-3 transition-all hover:bg-blue-50/50 dark:hover:bg-blue-900/20 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span> Patients
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 flex items-center px-4 py-3 font-inter text-sm font-medium transition-all" href="doctors.html">
+<span class="material-symbols-outlined mr-3" data-icon="medical_services">medical_services</span>
+                Doctors
+            </a>
+<a class="flex items-center gap-3 bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm rounded-lg mx-2 px-4 py-3 transition-all font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span> Appointments
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 flex items-center px-4 py-3 font-inter text-sm font-medium transition-all" href="approvedoc.html">
+<span class="material-symbols-outlined mr-3" data-icon="verified_user">verified_user</span>
+                Verification
+            </a>
+<a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-blue-600 px-6 py-3 transition-all hover:bg-blue-50/50 dark:hover:bg-blue-900/20 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> Settings
+            </a>
+</nav>
+<div class="px-4 mt-auto mb-4">
+<button class="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-primary-container text-white font-semibold text-sm shadow-md active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span> New Consultation
+            </button>
+</div>
+<div class="px-2 pt-4 border-t border-slate-100 dark:border-slate-900">
+<a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg transition-colors text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span> Support
+            </a>
+<a class="flex items-center gap-3 text-error px-4 py-2 hover:bg-error/5 rounded-lg transition-colors text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 mt-16 p-4 md:p-8 lg:p-12">
+<!-- Search & Filter Section -->
+<header class="mb-12">
+<h1 class="text-4xl md:text-5xl font-headline font-extrabold text-on-background tracking-tight mb-4">Book a Consultation</h1>
+<p class="text-on-surface-variant max-w-2xl text-lg font-body leading-relaxed">Find and book appointments with world-class specialists for personalized medical care from the comfort of your home.</p>
+<div class="mt-8 flex flex-col md:flex-row gap-4 items-center bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10">
+<div class="flex-1 w-full relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary" data-icon="person_search">person_search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 text-on-surface focus:ring-2 focus:ring-primary/40 placeholder:text-outline/60" placeholder="Search by name, specialty, or condition" type="text"/>
+</div>
+<div class="w-full md:w-48 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="location_on">location_on</span>
+<select class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-8 text-on-surface appearance-none focus:ring-2 focus:ring-primary/40">
+<option>Remote</option>
+<option>New York</option>
+<option>London</option>
+</select>
+</div>
+<button class="w-full md:w-auto px-8 py-4 bg-primary text-white font-bold rounded-xl active:scale-95 transition-all">Search Specialists</button>
+</div>
+</header>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Side: Results & Doctor Details -->
+<div class="lg:col-span-7 space-y-6">
+<!-- Specialized Tabs -->
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-6 py-2 bg-primary text-white rounded-full text-sm font-semibold whitespace-nowrap">All Specialties</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-secondary-container rounded-full text-sm font-medium whitespace-nowrap hover:bg-surface-container-highest transition-colors">Cardiology</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-secondary-container rounded-full text-sm font-medium whitespace-nowrap hover:bg-surface-container-highest transition-colors">Neurology</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-secondary-container rounded-full text-sm font-medium whitespace-nowrap hover:bg-surface-container-highest transition-colors">Dermatology</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-secondary-container rounded-full text-sm font-medium whitespace-nowrap hover:bg-surface-container-highest transition-colors">Pediatrics</button>
+</div>
+<!-- Doctor Card: Active Selection -->
+<article class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/10 relative overflow-hidden ring-2 ring-primary">
+<div class="absolute top-4 right-4 bg-tertiary/10 text-tertiary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary pulse-animation"></span>
+                        Online Now
+                    </div>
+<div class="flex flex-col sm:flex-row gap-6">
+<div class="w-32 h-32 rounded-2xl overflow-hidden flex-shrink-0">
+<img alt="Dr. Julian Vance" data-alt="headshot of a handsome male doctor in a white coat, kind expression, soft bright clinical lighting, modern clinic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3UlozY-oyXCS9ZX5r19a4UPFUfx0Lk-vhWwU-XdZLV_DoulMzvMdM-70EIKge-K857KCOHTuOiY6TXgMum-OBvAdagIr9Z7g8xjOkuXGsC3EEIppYBiE-byNAoljzPv9TkOGiby5HoyjzDTHYEkmG7Xeg_4PS5mLv7g2Uk48FYrllVCpT76qe-cxktdQDDsIYgpY6CJtfEwNXn9ddJVW-XvVozmd_mKqPd3xciTT4Vb_AcBKFKRM-9roU02ZSbzAEauduwsYTtK9Y"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-primary font-bold text-sm tracking-wider uppercase font-headline">Senior Cardiologist</span>
+</div>
+<h3 class="text-2xl font-headline font-extrabold text-on-surface mb-2">Dr. Julian Vance, M.D.</h3>
+<div class="flex items-center gap-4 text-sm text-on-surface-variant mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-lg" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9</span>
+<span>(1.2k reviews)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-outline" data-icon="work">work</span>
+<span>15+ Years</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body leading-relaxed mb-6">
+                                Specialized in non-invasive cardiology and preventative heart care. Dr. Vance has led over 500 successful cardiac tele-consultations this year with a focus on patient-first diagnostics.
+                            </p>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+<div class="bg-surface-container-low p-3 rounded-xl">
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Consultation</p>
+<p class="text-lg font-headline font-bold text-on-surface">$120.00</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl">
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Wait Time</p>
+<p class="text-lg font-headline font-bold text-on-surface">~15 Mins</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl hidden sm:block">
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Languages</p>
+<p class="text-lg font-headline font-bold text-on-surface">EN, ES</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Patient Reviews Section -->
+<section class="mt-12">
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-xl font-headline font-bold">Patient Experiences</h4>
+<button class="text-primary font-semibold text-sm hover:underline">View All Reviews</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-5 rounded-2xl border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">MK</div>
+<div>
+<p class="text-sm font-bold">Marcus K.</p>
+<div class="flex text-yellow-500 scale-75 -ml-4">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed italic">"Extremely thorough and explained my symptoms in a way that actually made sense. Best digital consultation I've had."</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center font-bold text-on-primary-container">SR</div>
+<div>
+<p class="text-sm font-bold">Sarah R.</p>
+<div class="flex text-yellow-500 scale-75 -ml-4">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed italic">"Dr. Vance was very patient with my questions. Felt very cared for even through a screen."</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Side: Booking Calendar & Confirmation -->
+<div class="lg:col-span-5">
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/10 sticky top-24">
+<h3 class="text-xl font-headline font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
+                        Select Schedule
+                    </h3>
+<!-- Simplified Calendar View -->
+<div class="mb-8">
+<div class="flex items-center justify-between mb-4">
+<span class="font-bold text-on-surface">September 2023</span>
+<div class="flex gap-1">
+<button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-lg" data-icon="chevron_left">chevron_left</span></button>
+<button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-lg" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-1 text-center mb-2">
+<span class="text-[10px] text-outline font-bold">S</span>
+<span class="text-[10px] text-outline font-bold">M</span>
+<span class="text-[10px] text-outline font-bold">T</span>
+<span class="text-[10px] text-outline font-bold">W</span>
+<span class="text-[10px] text-outline font-bold">T</span>
+<span class="text-[10px] text-outline font-bold">F</span>
+<span class="text-[10px] text-outline font-bold">S</span>
+</div>
+<div class="grid grid-cols-7 gap-1">
+<button class="py-2 text-sm text-outline/30 cursor-not-allowed">27</button>
+<button class="py-2 text-sm text-outline/30 cursor-not-allowed">28</button>
+<button class="py-2 text-sm text-outline/30 cursor-not-allowed">29</button>
+<button class="py-2 text-sm text-outline/30 cursor-not-allowed">30</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">1</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">2</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">3</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">4</button>
+<button class="py-2 text-sm bg-primary text-white font-bold rounded-lg shadow-sm">5</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">6</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">7</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">8</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">9</button>
+<button class="py-2 text-sm hover:bg-primary/10 rounded-lg">10</button>
+</div>
+</div>
+<!-- Time Slots -->
+<div class="mb-8">
+<p class="text-sm font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="schedule">schedule</span>
+                            Available Slots
+                        </p>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 px-3 border border-outline-variant/30 rounded-xl text-xs font-semibold hover:border-primary hover:text-primary transition-colors">09:00 AM</button>
+<button class="py-2 px-3 bg-primary/10 border border-primary text-primary rounded-xl text-xs font-bold">10:30 AM</button>
+<button class="py-2 px-3 border border-outline-variant/30 rounded-xl text-xs font-semibold hover:border-primary hover:text-primary transition-colors">11:00 AM</button>
+<button class="py-2 px-3 border border-outline-variant/30 rounded-xl text-xs font-semibold hover:border-primary hover:text-primary transition-colors">01:30 PM</button>
+<button class="py-2 px-3 border border-outline-variant/30 rounded-xl text-xs font-semibold text-outline/40 cursor-not-allowed bg-slate-50">02:00 PM</button>
+<button class="py-2 px-3 border border-outline-variant/30 rounded-xl text-xs font-semibold hover:border-primary hover:text-primary transition-colors">04:30 PM</button>
+</div>
+</div>
+<!-- Booking Summary -->
+<div class="bg-surface-container-low p-4 rounded-xl mb-6">
+<div class="flex justify-between mb-2">
+<span class="text-sm text-on-surface-variant">Consultation Fee</span>
+<span class="text-sm font-bold">$120.00</span>
+</div>
+<div class="flex justify-between mb-2">
+<span class="text-sm text-on-surface-variant">Service Tax (5%)</span>
+<span class="text-sm font-bold">$6.00</span>
+</div>
+<div class="h-[1px] bg-outline-variant/30 my-2"></div>
+<div class="flex justify-between">
+<span class="text-base font-bold text-on-surface">Total</span>
+<span class="text-xl font-headline font-extrabold text-primary">$126.00</span>
+</div>
+</div>
+<button class="w-full py-4 rounded-2xl bg-gradient-to-r from-primary to-primary-container text-white font-extrabold shadow-lg shadow-primary/20 hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95">
+                        Confirm Appointment
+                    </button>
+<p class="text-[11px] text-outline text-center mt-4 px-4 leading-tight">By clicking confirm, you agree to our Telehealth Terms of Service and Privacy Policy.</p>
+</div>
+</div>
+</div>
+<!-- More Recommended Doctors Section -->
+<section class="mt-20">
+<h3 class="text-2xl font-headline font-extrabold mb-8">Other Recommended Specialists</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Doctor Thumb 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 hover:shadow-md transition-shadow group cursor-pointer">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
+<img alt="Dr. Elena Petrova" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500" data-alt="professional portrait of a female neurologist with glasses, thoughtful expression, clean minimal medical background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh2cPuVF3qSNuGVjKlYwjr8nPgnl7VeaYmynZnn0jH6h4lA6YvuO2M5XypBtgfPtAry30tjwkJ08UESk0VYBw2hhXV_sijBzMsxQzhv1XZMuzvtaUn9uB04dB6hljg6hVdVG4x8YUcmH-dknFoBrOCV8iZMvhSn6wPWglaHDe6ON23vCTUxzLzks0cI6xfxI_YXgRi4zqxD-F6SyzNAveQSHtUIJ3hKclnubpA6KOqhfIsF91DDL77rFh97dHPKioSX2ong0wp35tF"/>
+<div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold text-primary">Neurologist</div>
+</div>
+<h5 class="font-bold text-on-surface mb-1">Dr. Elena Petrova</h5>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-yellow-500 text-xs" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.8 (850)
+                        </div>
+<span class="text-sm font-bold text-primary">$110</span>
+</div>
+</div>
+<!-- Doctor Thumb 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 hover:shadow-md transition-shadow group cursor-pointer">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
+<img alt="Dr. Michael Chen" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500" data-alt="candid shot of a young asian male pediatrician in scrubs, smiling warmly, brightly lit clinic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0-zY3bh87vcqgV8XQFiGlyrbBmVEcjed_EpnuY_ruWh1iNx71j5f0GXYhamzVdG170dof867PR8emksRtdsvNwXExggPA9UsaIlIiQB2dmxwhtcXo0HgQnMBPPk3F9gzn2uoRSIrt8ZbBvVZikKg0L47IJ4P-55qChsRBvbcorSS4xmCoMxyofBDDcPlt-_RPbUWp-mfmoNgY4gSJEJXUkO7M7JP35f8iXqRugczF1sTzSzbL_shmmcM2gzuD2j5N46aldVJmftr-"/>
+<div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold text-primary">Pediatrics</div>
+</div>
+<h5 class="font-bold text-on-surface mb-1">Dr. Michael Chen</h5>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-yellow-500 text-xs" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+                            5.0 (2k+)
+                        </div>
+<span class="text-sm font-bold text-primary">$95</span>
+</div>
+</div>
+<!-- Doctor Thumb 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 hover:shadow-md transition-shadow group cursor-pointer">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
+<img alt="Dr. Sarah Jenkins" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500" data-alt="professional profile of a middle-aged female therapist, calming office environment with plants, warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0tS73A_lg8DPUzSNe6qycZ8tfV0PR6IgRSfwOhrn_PbW_EMaGgQ7QmbGkXncXOnZegABm1clra9-292_TMXDRC6GV97GS5Dr6ucZ3SRocsGg6-WHvyVD-8UsQzYPPkB5DEVlnQtsw1xTExRM0t5XnOoBkpVaQQ3EICNfoVJs9MNsg4u2lhFZGTckNBxZFlNx7XqbrZESmc673GBb44xE4l6Qw91YffmZF0y-Jvy81-toA_Reh9I6pVfLgM6Tw6lXSMKx_ja5vJNLj"/>
+<div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold text-primary">Psychiatry</div>
+</div>
+<h5 class="font-bold text-on-surface mb-1">Dr. Sarah Jenkins</h5>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-yellow-500 text-xs" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.7 (620)
+                        </div>
+<span class="text-sm font-bold text-primary">$130</span>
+</div>
+</div>
+<!-- Doctor Thumb 4 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 hover:shadow-md transition-shadow group cursor-pointer">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
+<img alt="Dr. Liam O'Reilly" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500" data-alt="close-up of an experienced male dermatologist examining a patient chart, focused expression, high-end laboratory lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgxsy1uvg_T0Oz7yOrpiPbQZspyYk4Mllh8x0M9xotydl2dfOJ9Wykh6Oxh0P-mx3QmXkIUqdiughXir4_giD_LkTg2hN6LyKlipNx-rSjpVY7BwjzUv-LVDDZ2Z2SklOEKA4HgcdDQeHX209VOcd3W1mYyvCvpDqR75yliwWb5be9wR_72I4Gxim6tQxGQlXCd-VFEuFD36pyEKMY1Bo5m48LedhFpM0xzF_zG-QoR86iY6zRJzi3rIkrBy96l9ieVOTa9xA0Y0SI"/>
+<div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold text-primary">Dermatology</div>
+</div>
+<h5 class="font-bold text-on-surface mb-1">Dr. Liam O'Reilly</h5>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-yellow-500 text-xs" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.9 (440)
+                        </div>
+<span class="text-sm font-bold text-primary">$105</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-xl border-t border-slate-100 py-3 flex justify-around items-center z-50">
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="text-[10px] font-bold">Booking</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="video_chat">video_chat</span>
+<span class="text-[10px] font-medium">Calls</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="text-[10px] font-medium">Chat</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</nav>
+</body></html>
