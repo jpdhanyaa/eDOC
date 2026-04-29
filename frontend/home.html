@@ -96,12 +96,6 @@
 <div class="flex justify-between items-center px-6 py-3 w-full max-w-7xl mx-auto">
 <div class="flex items-center gap-8">
 <a class="text-xl font-bold tracking-tight text-blue-900 dark:text-blue-100 font-headline" href="#">TeleHealth Pulse</a>
-<nav class="hidden md:flex gap-6">
-<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 font-label py-1" href="#">Home</a>
-<a class="text-slate-500 dark:text-slate-400 font-label hover:text-blue-600 transition-colors py-1" href="#features">Services</a>
-<a class="text-slate-500 dark:text-slate-400 font-label hover:text-blue-600 transition-colors py-1" href="#doctors">Experts</a>
-<a class="text-slate-500 dark:text-slate-400 font-label hover:text-blue-600 transition-colors py-1" href="#">About</a>
-</nav>
 </div>
 <div class="flex items-center gap-4">
     <a href="login.html">
@@ -131,9 +125,11 @@
                         Experience a premium healthcare portal designed for modern life. Connect with world-class specialists in minutes through our secure, encrypted platform.
                     </p>
 <div class="flex flex-col sm:flex-row gap-4 pt-4">
+    <a href="booking.html">
 <button class="bg-gradient-to-r from-primary to-primary-container text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl hover:shadow-primary/20 transition-all active:scale-95">
                             Book a Consultation
                         </button>
+                        </a>
 <button class="flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold text-primary bg-surface-container-low hover:bg-surface-container-high transition-colors">
 <span class="material-symbols-outlined" data-icon="play_circle">play_circle</span>
                             How it Works
@@ -214,126 +210,87 @@
                         View All Specialists
                     </button>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-<div class="group">
-<div class="relative rounded-3xl overflow-hidden mb-4 aspect-[4/5]">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="professional portrait of a male cardiologist in a modern bright office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdmTFxgekwr83y2ea-4sa0xz38-DsndpE3buqSb_GhkOBJE0Trj3TOIT3DBV6bShzmwsWEw_HGnpGZh2CtuLq0lzdiNdy86aAXCVFiXr0uUuhoxkiRQROYL6FJ2Xrp1_x87q_VNRSSeZrmSQ54xeSfVfViB9vignDAiSSn6AWYHS4qiC1IKhirV3tSz4huEquA5oI9At8MRkBGQLJYicvwWDEheANn0PsLXTs5ZtkhGno43FKKkEvbN9RWsTwdKbxXXfq6BtD8nV__"/>
-<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1">
-<span class="material-symbols-outlined text-amber-500 text-sm" data-icon="star" data-weight="fill">star</span>
-<span class="text-xs font-bold text-on-background">4.9</span>
-</div>
-</div>
-<h4 class="text-xl font-bold font-headline">Dr. Marcus Chen</h4>
-<p class="text-primary font-medium text-sm mb-2">Cardiology Specialist</p>
-<p class="text-on-surface-variant text-xs leading-relaxed">Expert in hypertension and preventive heart care with 15+ years experience.</p>
-</div>
-<div class="group">
-<div class="relative rounded-3xl overflow-hidden mb-4 aspect-[4/5]">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="professional headshot of a female pediatrician smiling in a warm friendly lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGyx6LVkUS9aK1BG5xOeeqViuCiz5EdW5UcX_WTUZ92eI60bh1eIBpW2Cjjb8_-bjI1n4DbQ0o4Xe1uGBvWq_oLo24Kgd9mlDHfxpL_Br8GNeP2Of2F5djeEDG76KUOmCfB59AcbA1O8iwoJmrvokZKdXFvU470TJKtQA1rNE-2hjfJO7nimnANDK6vhPZLOgUvXnJ5WJvhADUKy1AaxMQACIkk9CkGnoSGtCt-n_O9g6I1_sPY5MJ4Wzgq4XSmwk-YkZb_lRTQd0t"/>
-<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1">
-<span class="material-symbols-outlined text-amber-500 text-sm" data-icon="star" data-weight="fill">star</span>
-<span class="text-xs font-bold text-on-background">5.0</span>
-</div>
-</div>
-<h4 class="text-xl font-bold font-headline">Dr. Sarah Jenkins</h4>
-<p class="text-primary font-medium text-sm mb-2">Pediatrics</p>
-<p class="text-on-surface-variant text-xs leading-relaxed">Focused on holistic child development and adolescent mental wellbeing.</p>
-</div>
-<div class="group">
-<div class="relative rounded-3xl overflow-hidden mb-4 aspect-[4/5]">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="middle aged male doctor with glasses looking attentive and professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCgT1zRDXTOMZyvtdQ5JIOKISAl8ZnqjdaNmg8Oi90FiM7Rfyv-43h65u_iWYSg4jCvC_KXI18y_HjALQ0L2IUYlwMRiuRLpSZ5Xf1-bJeR-PyFmobpZjwTT2ogGIaURH5RyGKMjjDcKDg89d4IS5UBHzZSAqd7QXjzzDf7XED3Rv8B__6-IoY8u7bWXYACc_5rfflEgpiVz2DRbabqiRI8-76Ct-Td6uJDZdnX_Z9UGh08nJfQo9Ht0AE0zdDvLPERJXdi5XOmnR-"/>
-<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1">
-<span class="material-symbols-outlined text-amber-500 text-sm" data-icon="star" data-weight="fill">star</span>
-<span class="text-xs font-bold text-on-background">4.8</span>
-</div>
-</div>
-<h4 class="text-xl font-bold font-headline">Dr. Elena Rodriguez</h4>
-<p class="text-primary font-medium text-sm mb-2">Dermatology</p>
-<p class="text-on-surface-variant text-xs leading-relaxed">Specializing in tele-dermatology and advanced skin regenerative therapies.</p>
-</div>
-<div class="group">
-<div class="relative rounded-3xl overflow-hidden mb-4 aspect-[4/5]">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="confident male mental health professional in a cozy clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuIHbSBKmryGl07E_F8F83zjgpEhWl-K1HqCXiTxOpN5tX7Xo7yk7h_5aQztas1tA7zphXkyTeKHJnF12D97XJKA-lNk7Fix_NEj4rrkMWng1L3PBrRqglRASxsJZA8Ve7cBeEMCdT-S3fYlEhsLdyG88dla4G1Nca4NVsze9SrLInrW_tF_C7xKoA0bEncChkOARA6SVDlxAtmKUIWS27mzMLCdVqMeyCUfcQ3Wm5OAt4qCU3DcCx2Kum_RH12t2bjXOSAd-e2YMv"/>
-<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1">
-<span class="material-symbols-outlined text-amber-500 text-sm" data-icon="star" data-weight="fill">star</span>
-<span class="text-xs font-bold text-on-background">4.9</span>
-</div>
-</div>
-<h4 class="text-xl font-bold font-headline">Dr. Julian Vance</h4>
-<p class="text-primary font-medium text-sm mb-2">Psychiatry</p>
-<p class="text-on-surface-variant text-xs leading-relaxed">Committed to accessible mental health support and cognitive therapy.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="py-20 px-6">
-<div class="max-w-7xl mx-auto bg-primary rounded-[3rem] p-12 md:p-20 relative overflow-hidden flex flex-col items-center text-center">
-<div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-<div class="absolute top-0 left-0 w-64 h-64 bg-white rounded-full blur-[80px]"></div>
-<div class="absolute bottom-0 right-0 w-96 h-96 bg-secondary-container rounded-full blur-[100px]"></div>
-</div>
-<h2 class="text-4xl md:text-6xl font-headline font-extrabold text-white mb-8 leading-tight">Ready to prioritize <br/>your health?</h2>
-<p class="text-primary-fixed text-lg md:text-xl max-w-2xl mb-12">Join thousands of patients who have already switched to a more convenient, empathetic way to see a doctor.</p>
-<div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
-<button class="bg-white text-primary px-10 py-4 rounded-full text-lg font-bold shadow-xl hover:scale-105 transition-all">Get Started Today</button>
-<button class="bg-primary-container text-white px-10 py-4 rounded-full text-lg font-bold border border-white/20 hover:bg-primary-container/80 transition-all">Register as a Doctor</button>
-</div>
+<div id="doctorContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 </div>
 </section>
 </main>
-<footer class="bg-white dark:bg-slate-950 pt-20 pb-10 px-6 border-t border-slate-100 dark:border-slate-900">
-<div class="max-w-7xl mx-auto">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-<div class="space-y-6">
-<a class="text-2xl font-bold tracking-tight text-blue-900 dark:text-blue-100 font-headline" href="#">TeleHealth Pulse</a>
-<p class="text-slate-500 dark:text-slate-400 leading-relaxed">Revolutionizing healthcare delivery through empathy-driven technology and elite medical expertise.</p>
-<div class="flex gap-4">
-<a class="h-10 w-10 rounded-full bg-slate-50 dark:bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-xl" data-icon="share">share</span>
-</a>
-<a class="h-10 w-10 rounded-full bg-slate-50 dark:bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-xl" data-icon="public">public</span>
-</a>
-<a class="h-10 w-10 rounded-full bg-slate-50 dark:bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-xl" data-icon="video_chat">video_chat</span>
-</a>
+<div class="mt-6 pt-6 pb-6 border-t border-slate-100 dark:border-slate-900 text-center">
+  <p class="text-sm text-slate-500 mb-1">
+    &copy; <span id="year">2024</span> TeleHealth Pulse. All rights reserved.
+  </p>
+  <div class="flex justify-center gap-3 text-xs text-slate-400">
+    <span class="hover:text-primary cursor-pointer">Privacy</span>
+    <span class="hover:text-primary cursor-pointer">Terms</span>
+    <span class="hover:text-primary cursor-pointer">Support</span>
+  </div>
+</div>
+<script>
+const doctors = [
+{
+name: "Dr. Marcus Chen",
+specialization: "Cardiology Specialist",
+rating: "4.9",
+desc: "Expert in hypertension and preventive heart care with 15+ years experience.",
+img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCdmTFxgekwr83y2ea-4sa0xz38-DsndpE3buqSb_GhkOBJE0Trj3TOIT3DBV6bShzmwsWEw_HGnpGZh2CtuLq0lzdiNdy86aAXCVFiXr0uUuhoxkiRQROYL6FJ2Xrp1_x87q_VNRSSeZrmSQ54xeSfVfViB9vignDAiSSn6AWYHS4qiC1IKhirV3tSz4huEquA5oI9At8MRkBGQLJYicvwWDEheANn0PsLXTs5ZtkhGno43FKKkEvbN9RWsTwdKbxXXfq6BtD8nV__"
+},
+{
+name: "Dr. Sarah Jenkins",
+specialization: "Pediatrics",
+rating: "5.0",
+desc: "Focused on holistic child development and adolescent mental wellbeing.",
+img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBGyx6LVkUS9aK1BG5xOeeqViuCiz5EdW5UcX_WTUZ92eI60bh1eIBpW2Cjjb8_-bjI1n4DbQ0o4Xe1uGBvWq_oLo24Kgd9mlDHfxpL_Br8GNeP2Of2F5djeEDG76KUOmCfB59AcbA1O8iwoJmrvokZKdXFvU470TJKtQA1rNE-2hjfJO7nimnANDK6vhPZLOgUvXnJ5WJvhADUKy1AaxMQACIkk9CkGnoSGtCt-n_O9g6I1_sPY5MJ4Wzgq4XSmwk-YkZb_lRTQd0t"
+},
+{
+name: "Dr. Elena Rodriguez",
+specialization: "Dermatology",
+rating: "4.8",
+desc: "Specializing in tele-dermatology and advanced skin regenerative therapies.",
+img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDCgT1zRDXTOMZyvtdQ5JIOKISAl8ZnqjdaNmg8Oi90FiM7Rfyv-43h65u_iWYSg4jCvC_KXI18y_HjALQ0L2IUYlwMRiuRLpSZ5Xf1-bJeR-PyFmobpZjwTT2ogGIaURH5RyGKMjjDcKDg89d4IS5UBHzZSAqd7QXjzzDf7XED3Rv8B__6-IoY8u7bWXYACc_5rfflEgpiVz2DRbabqiRI8-76Ct-Td6uJDZdnX_Z9UGh08nJfQo9Ht0AE0zdDvLPERJXdi5XOmnR-"
+},
+{
+name: "Dr. Julian Vance",
+specialization: "Psychiatry",
+rating: "4.9",
+desc: "Committed to accessible mental health support and cognitive therapy.",
+img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBuIHbSBKmryGl07E_F8F83zjgpEhWl-K1HqCXiTxOpN5tX7Xo7yk7h_5aQztas1tA7zphXkyTeKHJnF12D97XJKA-lNk7Fix_NEj4rrkMWng1L3PBrRqglRASxsJZA8Ve7cBeEMCdT-S3fYlEhsLdyG88dla4G1Nca4NVsze9SrLInrW_tF_C7xKoA0bEncChkOARA6SVDlxAtmKUIWS27mzMLCdVqMeyCUfcQ3Wm5OAt4qCU3DcCx2Kum_RH12t2bjXOSAd-e2YMv"
+}
+];
+
+ document.addEventListener("DOMContentLoaded", function(){
+ const yearEl = document.getElementById("year");
+ if (yearEl) yearEl.innerText = new Date().getFullYear();
+
+ const container = document.getElementById("doctorContainer");
+
+if(!container){
+console.error("doctorContainer not found");
+return;
+}
+
+container.innerHTML = "";
+
+for(let i=0;i<doctors.length;i++){
+let d = doctors[i];
+
+let card = document.createElement("div");
+card.className = "group";
+
+card.innerHTML = `
+<div class="relative rounded-3xl overflow-hidden mb-4 aspect-[4/5]">
+<img src="${d.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-amber-500 text-sm">star</span>
+<span class="text-xs font-bold text-on-background">${d.rating}</span>
 </div>
 </div>
-<div>
-<h5 class="font-bold text-on-background mb-6 font-headline">Platform</h5>
-<ul class="space-y-4 text-slate-600 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#">How it Works</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Find a Doctor</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Pricing Plans</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Mobile App</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold text-on-background mb-6 font-headline">Specialties</h5>
-<ul class="space-y-4 text-slate-600 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#">General Health</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Mental Wellbeing</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Pediatrics Care</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Dermatology</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold text-on-background mb-6 font-headline">Support</h5>
-<ul class="space-y-4 text-slate-600 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
-</ul>
-</div>
-</div>
-<div class="pt-8 border-t border-slate-100 dark:border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
-<p class="text-sm text-slate-500">© 2024 TeleHealth Pulse. All rights reserved.</p>
-<div class="flex items-center gap-8">
-<img class="h-6 grayscale opacity-50" data-alt="minimal logo of a health trust accreditation board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKtT3lGkvf6dFyFx4E4vahwjLi7_WuRnxJqaQ37sgmZWCj4wS8DiLWfJNygyjznx1nK3zDb3gFJE2RFmzYRhPCnvFfPm9wcU-TCwAZuF7wYSz-FLscr3s5vf0mEhswwPMCKXCTzuVhG43QXXIZ58I4c7uFIohv-NFTUtlls_kndSB4UwSU4gAODMGRXfK9_WNCkJIF3tgxG25vnaa0teceFIkwoXrTcq6g0yr7i0OVX97HhekOW5P8Y9xinudMaHsATzO_FZr7PABM"/>
-<img class="h-6 grayscale opacity-50" data-alt="minimal logo of a cybersecurity standards certification" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmNptFWvGalC2gExb92fBF5zvuF-8RaAJ2OxhAsJcDlNHt9RDK1pflx33mZIG2BHdQQjHc1-b-ekN6a7rXqZ-yFcgyk6Ar_Lc092XAinuKtmqx0_zRq1WpiwZ2_4OuBU8Xs5FnUvGKh37MQptFm7knA3DsNtpWyUW-oo1GAHmtqfWCYK7RWLu_NdjiqiTBf95t62nOTHPCNJPb7ZF4ioAuAwyRUhfLOctqALFTrcfx_rzf2VlUuMGEHA4m7Lmc1Cv6-FUTbneDtr3j"/>
-</div>
-</div>
-</div>
-</footer>
+<h4 class="text-xl font-bold font-headline">${d.name}</h4>
+<p class="text-primary font-medium text-sm mb-2">${d.specialization}</p>
+<p class="text-on-surface-variant text-xs leading-relaxed">${d.desc}</p>
+`;
+
+container.appendChild(card);
+}
+
+});
+</script>
 </body></html>
