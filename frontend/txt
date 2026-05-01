@@ -1,0 +1,27 @@
+paitentdash.html
+
+Session protection
+
+<script>
+if(localStorage.getItem("role") !== "Patient"){
+    window.location.href = "login.html";
+}
+</script>
+
+<button onclick="logout()">Logout</button>
+
+<script>
+function logout(){
+    localStorage.clear();
+    window.location.href = "login.html";
+}
+</script>
+
+Show user email
+document.body.innerHTML += "<p>" + localStorage.getItem("email") + "</p>";
+
+Logout
+function logout(){
+    localStorage.clear();
+    window.location.href = "login.html";
+}

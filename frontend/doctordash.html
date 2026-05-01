@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Dashboard | TeleHealth Pulse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#d8dadb",
+              "surface-container-highest": "#e1e3e4",
+              "surface-container-high": "#e6e8e9",
+              "secondary-fixed-dim": "#b4cad6",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#c3c6d6",
+              "on-primary-container": "#ccd8ff",
+              "on-secondary-fixed": "#071e27",
+              "secondary": "#4c616c",
+              "secondary-container": "#cfe6f2",
+              "inverse-primary": "#b2c5ff",
+              "background": "#f8fafb",
+              "tertiary-fixed": "#68fadd",
+              "surface-tint": "#0056d2",
+              "secondary-fixed": "#cfe6f2",
+              "on-primary-fixed-variant": "#0040a1",
+              "primary-fixed-dim": "#b2c5ff",
+              "tertiary": "#005145",
+              "tertiary-container": "#006b5c",
+              "outline": "#737785",
+              "surface-container-lowest": "#ffffff",
+              "surface-container": "#eceeef",
+              "primary-container": "#0056d2",
+              "on-tertiary-container": "#5cf0d4",
+              "primary-fixed": "#dae2ff",
+              "surface-bright": "#f8fafb",
+              "tertiary-fixed-dim": "#44ddc1",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#eff1f2",
+              "on-secondary-container": "#526772",
+              "surface-container-low": "#f2f4f5",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-surface-variant": "#424654",
+              "on-secondary-fixed-variant": "#354a53",
+              "surface-variant": "#e1e3e4",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#2e3132",
+              "on-background": "#191c1d",
+              "surface": "#f8fafb",
+              "on-surface": "#191c1d",
+              "on-tertiary-fixed-variant": "#005145",
+              "on-primary-fixed": "#001847",
+              "error-container": "#ffdad6",
+              "primary": "#0040a1",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed": "#00201a"
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .pulse-animation {
+        box-shadow: 0 0 0 0 rgba(0, 81, 69, 0.4);
+        animation: pulse-green 2s infinite;
+      }
+      @keyframes pulse-green {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 81, 69, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 81, 69, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 81, 69, 0); }
+      }
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body">
+<!-- SideNavBar (Authority: JSON & Design System) -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-50 bg-slate-50 dark:bg-slate-950 flex flex-col h-full py-6 border-r border-slate-200 dark:border-slate-800">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+</div>
+<div>
+<h1 class="font-manrope text-lg font-extrabold text-blue-800 tracking-tight">Medical Portal</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Clinical Precision</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-2">
+<!-- Active: Dashboard -->
+<a class="bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm rounded-lg mx-2 flex items-center px-4 py-3 font-inter text-sm font-medium transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-3 flex items-center font-inter text-sm font-medium hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="calendar_today">calendar_today</span>
+                Appointments
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-3 flex items-center font-inter text-sm font-medium hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="groups">groups</span>
+                Patients
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-3 flex items-center font-inter text-sm font-medium hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="video_chat">video_chat</span>
+                Consultations
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-3 flex items-center font-inter text-sm font-medium hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="forum">forum</span>
+                Messages
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-3 flex items-center font-inter text-sm font-medium hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto px-4 space-y-4">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-3 rounded-xl font-semibold shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Consultation
+            </button>
+<div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-2 flex items-center font-inter text-sm font-medium hover:bg-blue-50/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="contact_support">contact_support</span>
+                    Support
+                </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-error px-4 py-2 flex items-center font-inter text-sm font-medium hover:bg-red-50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="logout">logout</span>
+                    Logout
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar (Authority: JSON & Design System) -->
+<header class="fixed top-0 right-0 left-64 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-4">
+<h2 class="font-manrope tracking-tight font-semibold text-xl text-blue-900">Dashboard Overview</h2>
+<div class="flex items-center gap-2 px-3 py-1 bg-tertiary/10 rounded-full border border-tertiary/20">
+<span class="w-2 h-2 rounded-full bg-tertiary pulse-animation"></span>
+<span class="text-[12px] font-bold text-tertiary">Live System Active</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-slate-400">
+<span class="material-symbols-outlined text-sm" data-icon="search">search</span>
+</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm w-64 focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="Search patients, records..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 mx-1"></div>
+<div class="flex items-center gap-3 ml-2">
+<div class="text-right">
+<p class="text-sm font-bold text-on-background">Dr. Julian Vance</p>
+<p class="text-[11px] text-slate-500 font-medium">Chief of Cardiology</p>
+</div>
+<img alt="Doctor profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed shadow-sm" data-alt="professional portrait of a confident male doctor in a white coat with a friendly smile in a modern clinic office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7jBggog3-IWhhXACPI8b6OAfrL8kPcynTbYrzYVkOLZdzyxthuVzd3jNGw1K3akSRFR_Dv0kjndiZEFEMCtwpI_FYYtEN0LPzsS1lVkF0BgiGUXwU0r1RgXIktCCVSNg5wrbaPdJP4BCekJfxbZsVQOB43ppC07sCDoXMXaBYq-e9POVGvmuHdVxpEe1Li3jb924bxWF7XhcmUAUQoulaoS7JoGl26pDeu1EGkcVcVsFTJAMEq6K3T15COrvHGo95cIvbDG8KvQso"/>
+</div>
+</div>
+</div>
+</header>
+<div class="mt-20 px-8 py-8">
+<!-- Hero Stats / Bento Grid Start -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Doctor Profile Summary Card (Asymmetric Layout) -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-xl p-6 border-none flex flex-col justify-between overflow-hidden relative group">
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-primary/5 rounded-full group-hover:scale-110 transition-transform duration-700"></div>
+<div class="z-10">
+<div class="flex items-start justify-between mb-6">
+<div class="flex flex-col">
+<span class="px-3 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold uppercase tracking-widest rounded-full w-fit mb-3">Today's Status</span>
+<h3 class="font-manrope text-2xl font-extrabold text-on-background leading-tight">System<br/>Online</h3>
+</div>
+<div class="w-12 h-12 rounded-2xl bg-tertiary flex items-center justify-center shadow-lg shadow-tertiary/20">
+<span class="material-symbols-outlined text-white" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">You have <span class="text-primary font-bold">12 appointments</span> scheduled for today. The first patient arrives in 15 minutes.</p>
+</div>
+<div class="flex items-center gap-4 z-10 pt-4 border-t border-slate-50">
+<div class="flex -space-x-3">
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="close up headshot of a female patient smiling soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4d8dUhQTX8OXOjHPdIJuC4L2_CqRWYlYANjaZpiD5WYjYLnrHfCUjj_6x6FLxyFPgZTN13wPZ31wEaiDIHp-SyLcY_qFvjx3CgYB9h9AkU5FtyFqE3TWakczxDQwmJHp-buxUNG2Ges9G0VU-aipxwi4CxHlMl2eTBZqllGTEpWhS3PNbut4iar8-n8LQCWNn6fYFlwL6Vmo4MC87iCCcTejVPBYUhBI95iIBTbgW50iupO-hPQtUeizkWTPmoET1mxMjb4E1ruUS"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="senior man looking ahead with clear focused eyes soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs1PorrG5fCn-jVtMlru4wSnwKS6iUX9dgOkGS_iYrbvUAWGGLUbB0aLbb5HahpaPyqYa1kcnReJtJqhvceCtZ7QE0MiQlfjZJ5w2l4b4puepEKCz4F_F023H-Xl0sZoWwxwEhhRmK9eV6dzsmYr0rPRnwm7xX_HYldKHa5zC7MlXsgA5Yhf7yEMWsSCDMRPp5YCqKErSt8Uzirw_xCq9pzZJCR6MwInduKzN0zxV8jq7bBaPTl768YPgIokaqZkr044JSZpa_F5XF"/>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">+10</div>
+</div>
+<span class="text-xs font-medium text-slate-500">Upcoming queue</span>
+</div>
+</div>
+<!-- Daily Schedule Overview -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-primary-container/10 p-6 rounded-xl border-none flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
+<span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-white rounded-full">ACTIVE</span>
+</div>
+<div>
+<p class="text-3xl font-manrope font-extrabold text-blue-900">08:30</p>
+<p class="text-sm font-medium text-blue-800/70">Next Appointment</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-none flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="pending_actions">pending_actions</span>
+</div>
+<div>
+<p class="text-3xl font-manrope font-extrabold text-on-background">04</p>
+<p class="text-sm font-medium text-on-surface-variant">Pending Reports</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-none flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="forum">forum</span>
+</div>
+<div>
+<p class="text-3xl font-manrope font-extrabold text-on-background">07</p>
+<p class="text-sm font-medium text-on-surface-variant">Unread Messages</p>
+</div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<!-- Column 1: Appointments -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<section>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-manrope text-xl font-bold text-on-background">Upcoming Appointments</h3>
+<button class="text-sm font-semibold text-primary hover:underline">View All Schedule</button>
+</div>
+<!-- Timeline Layout -->
+<div class="space-y-4">
+<!-- Appointment Item 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center gap-6 group hover:bg-slate-50 transition-all duration-300">
+<div class="flex flex-col items-center justify-center min-w-[70px] border-r border-slate-100 pr-6">
+<span class="text-sm font-bold text-primary">08:30</span>
+<span class="text-[10px] font-medium text-slate-400 uppercase tracking-tighter">AM</span>
+</div>
+<div class="flex-1 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="middle aged man with glasses professional looking portrait soft studio light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHdsxbuBCLMREytLrc8rCCcKSBoqklR5Jyr6QTO1gHWbVVzi5pd2HiZhWY1IhLMX6mpopR4Lnx7o59QxfaNdu-y3AJlzeU1raJz1692drgFoJNMebqNIdcW70FeIste67SRRNVRBlvFzCM7_Eh9ujXty_wH1EivGvWupCIChLIFPgYJ9Hv8hTefwyP0ozwP0TiWs139ePUR7aAAJ_5AjE1ypgoGVC9aJy8DoYHqLED_Zod7V23HOKROKSyNZ1WamBOIuKR7C3H3k1v"/>
+<div>
+<h4 class="font-bold text-on-background">Arthur Morgan</h4>
+<p class="text-xs text-on-surface-variant">Post-surgery checkup • Follow-up</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg text-xs font-bold active:scale-95 transition-all">Case Files</button>
+<button class="px-4 py-2 bg-primary text-white rounded-lg text-xs font-bold active:scale-95 transition-all">Join Call</button>
+</div>
+</div>
+</div>
+<!-- Appointment Item 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center gap-6 group hover:bg-slate-50 transition-all duration-300">
+<div class="flex flex-col items-center justify-center min-w-[70px] border-r border-slate-100 pr-6">
+<span class="text-sm font-bold text-slate-500">09:15</span>
+<span class="text-[10px] font-medium text-slate-400 uppercase tracking-tighter">AM</span>
+</div>
+<div class="flex-1 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="young woman with clear skin smiling warm natural morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2fCQbqxrwExz1s8swBEmJ-xzQgZnTFr7ZaJdjGBzFYiR78tXGN4EhQNVRj2kVhXTOsctmYqO-wtK6rYdlWnySAYFX4rak93v0Ee0TfFre71vWn6Ez3pJF6Lb9fF6rtthpINbBFu4VA_H4pRZOnA9lbfEqzVv00gZWg317FrAoZEtBiTUlCjhw1PPHjfuAA1J8dY2bSl28k56THbyTscC7Dt-yca8PrD0csqxRD3e_8JDYNrFCl5AZxtvR3Y70GjjCRocOxcDYfLPE"/>
+<div>
+<h4 class="font-bold text-on-background">Sarah Jenkins</h4>
+<p class="text-xs text-on-surface-variant">Hypertension monitoring • Routine</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-surface-container-low text-on-surface-variant text-[10px] font-bold rounded-full">IN PERSON</span>
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Appointment Item 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center gap-6 group hover:bg-slate-50 transition-all duration-300">
+<div class="flex flex-col items-center justify-center min-w-[70px] border-r border-slate-100 pr-6">
+<span class="text-sm font-bold text-slate-500">10:00</span>
+<span class="text-[10px] font-medium text-slate-400 uppercase tracking-tighter">AM</span>
+</div>
+<div class="flex-1 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="portrait of an older man with white beard friendly eyes soft focus park background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKx-kVUPFHthGkcCqwkdwOqcNITbuVJv5vImsfpW-2m1xAJ-61-gz3v6SP0Rkp3635KvxhjeeItHL_MG4m88x0OoD5uFNhEJmnKlbS0rxjQ_e7JSMVDXwyKmQ9N6v6VDlZXPLj5X6CPoVb4iHXFN7JgSWTVosBy4aPDYjrT1CVTmD7mb5UKT0nZL3TbxdG0VO311yJUOnOiVzKAEWekozNz7Swbdm9vekqV0_3xsqic7FCOVwaMfV7u4zTYaUUGw01RJMBzwOP62Vo"/>
+<div>
+<h4 class="font-bold text-on-background">Robert De Luca</h4>
+<p class="text-xs text-on-surface-variant">Chest pain consultation • Urgent</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-error-container text-error text-[10px] font-bold rounded-full uppercase">High Priority</span>
+<button class="px-4 py-2 bg-primary text-white rounded-lg text-xs font-bold active:scale-95 transition-all">Start Now</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Column 2: Side Details -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Pending Consultations (Glassmorphism inspired) -->
+<section class="bg-white/50 border border-white/20 backdrop-blur-sm p-6 rounded-2xl shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-manrope font-bold text-on-background">Quick Consults</h3>
+<span class="text-[10px] font-bold px-2 py-1 bg-primary text-white rounded-full">3 NEW</span>
+</div>
+<div class="space-y-4">
+<div class="p-3 bg-white/80 rounded-xl hover:shadow-md transition-shadow cursor-pointer">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-bold text-slate-500 uppercase">General Health</span>
+<span class="text-[10px] text-slate-400">2m ago</span>
+</div>
+<p class="text-xs font-semibold text-on-background">"Doctor, the prescription for my allergy is almost..."</p>
+<div class="mt-2 flex items-center gap-2">
+<img class="w-5 h-5 rounded-full" data-alt="small thumbnail of female patient face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn94bWUW6onL7k3o6WNQD0-aErJQUGlAGsRT0rVC5ZtypKE4VDYCR_mDpxIpA6g4CUQ9FLTgwnt8kLEOUVEcRbsTN7n5Vo38EwhtbF6cJFSOBst0sdUEX-KJ0Bvt9hc1Oot3BiZPQz3I8O37fz_vfwVZQFupKkhC2NVHkXancAiG02bQ2yRIKeQRt_JLOV6AN2RIlmjSsTdgHREAK4Woh3Txtub0jsUH4-L1QoFThrgPAFo0gwwNEfmM2oHMR85TZ4V2b8rlP30hLk"/>
+<span class="text-[10px] text-slate-500">Elena G.</span>
+</div>
+</div>
+<div class="p-3 bg-white/80 rounded-xl hover:shadow-md transition-shadow cursor-pointer">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Cardio Sync</span>
+<span class="text-[10px] text-slate-400">14m ago</span>
+</div>
+<p class="text-xs font-semibold text-on-background">"Sent my weekly heart rate logs for review."</p>
+<div class="mt-2 flex items-center gap-2">
+<img class="w-5 h-5 rounded-full" data-alt="small thumbnail of male patient face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmCnmeVbOW-6yrPgy_D_0YuKvkNAqsiRmUp_QtgjriEmbozNCDr7DXHqIAgA4itWQxiwn0sZ2i3IcKKkwwlkrMpbYDCXqN8JPxG8kI3UAraC38S_b8sOTTiEnSwtoC7JCXUIexsCcFbsE0NB2evMLUvmiLe9XKGP_XSr4RejidCFU5KTNLAfVLOypb6CTefqrPFA5gNhgFO3k_Pq28OKfiY_w6OaUZnwWOUGIdaoodkywnEIB7WIQY4ZVP5DT32-OgNtZScAduLqr2"/>
+<span class="text-[10px] text-slate-500">Thomas R.</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 border border-slate-200 rounded-xl text-xs font-bold text-on-surface-variant hover:bg-slate-50 transition-colors">Open Message Center</button>
+</section>
+<!-- Profile Stats -->
+<section class="bg-primary p-6 rounded-2xl text-white overflow-hidden relative">
+<div class="absolute right-[-20px] bottom-[-20px] opacity-10">
+<span class="material-symbols-outlined text-[100px]" data-icon="medical_information">medical_information</span>
+</div>
+<h3 class="font-manrope font-bold mb-4 relative z-10">Your Performance</h3>
+<div class="grid grid-cols-2 gap-4 relative z-10">
+<div>
+<p class="text-blue-100 text-[10px] uppercase font-bold tracking-widest">Rating</p>
+<div class="flex items-center gap-1">
+<p class="text-2xl font-manrope font-extrabold">4.9</p>
+<span class="material-symbols-outlined text-sm text-yellow-400" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div>
+<p class="text-blue-100 text-[10px] uppercase font-bold tracking-widest">Patients</p>
+<p class="text-2xl font-manrope font-extrabold">1.2k</p>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between relative z-10">
+<span class="text-xs font-medium text-blue-100">Profile completion</span>
+<span class="text-xs font-bold">95%</span>
+</div>
+<div class="mt-2 h-1 w-full bg-white/20 rounded-full overflow-hidden relative z-10">
+<div class="h-full bg-tertiary-fixed w-[95%]"></div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for quick action (Authority: JSON/Manual Hybrid) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</body></html>
