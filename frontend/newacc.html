@@ -105,37 +105,17 @@
                     Experience a healthcare ecosystem built on trust, efficiency, and empathetic care. Start your journey with eDOC today.
                 </p>
 </div>
-<div class="relative z-10">
-<div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-<div class="flex items-center gap-4 mb-4">
-<img alt="Professional Healthcare Provider" class="w-12 h-12 rounded-full object-cover border-2 border-white/20" data-alt="portrait of a confident female doctor in white coat smiling in a bright modern medical office with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyQMxepDpwIb_m5A71-gEQSML6xlUOQ_76M-5KNcCmwY6nGDs27FSQz4aKjAY-Vce2DipRnPL21cYgtofqg7oi7ObpNL9n1UA0LBfxF_7Ji9NhAp_27nk9Ae63gqCqIbcBjai-fCUNrK-6kPyZikdl2WAaOY9iWKxHRAfcH1nJmNsCH_q8Zcpj6W3Thom9YmWh5vEB0TtKJoyIRj4NZcqJuhFTtqMCTWwK1kV3B-Rs7QvFEHxVkqspgpFrDGRbA71TxDZk1ZGXjFmB"/>
-<div>
-<p class="font-headline font-bold text-sm">Dr. Sarah Jenkins</p>
-<p class="text-xs text-on-primary-container">Chief Medical Officer</p>
-</div>
-</div>
-<p class="italic text-sm text-on-primary-container leading-relaxed">
-                        "The Pulse platform has transformed how we connect with patients. Every detail is designed for clinical accuracy and ease of use."
-                    </p>
-</div>
-</div>
 <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-tertiary/20 rounded-full blur-[100px]"></div>
 <div class="absolute top-1/2 -left-20 w-64 h-64 bg-blue-400/20 rounded-full blur-[80px]"></div>
 </aside>
-<section class="flex-1 flex flex-col items-center justify-center p-6 md:p-12 lg:p-20 bg-surface overflow-y-auto no-scrollbar">
+<section class="flex-1 flex flex-col items-center justify-center p-6 md:p-12 lg:p-20 bg-surface no-scrollbar">
 <div class="w-full max-w-xl">
 <header class="mb-10">
 <div class="flex justify-between items-end mb-8">
 <div>
-<span class="text-primary font-bold text-xs uppercase tracking-widest mb-2 block">Step 01 of 03</span>
 <h2 class="font-headline text-3xl font-extrabold text-on-background tracking-tight">Create your account</h2>
 </div>
-<a class="text-sm font-semibold text-primary hover:underline underline-offset-4" href="#">Already have an account?</a>
-</div>
-<div class="flex gap-3">
-<div class="h-1.5 flex-1 rounded-full primary-gradient"></div>
-<div class="h-1.5 flex-1 rounded-full bg-surface-container-highest"></div>
-<div class="h-1.5 flex-1 rounded-full bg-surface-container-highest"></div>
+<a class="text-sm font-semibold text-primary hover:underline underline-offset-4" href="login.html">Already have an account?</a>
 </div>
 </header>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
@@ -157,7 +137,7 @@
 <div class="h-full p-6 bg-surface-container-lowest border border-outline-variant/15 rounded-xl transition-all duration-300 peer-checked:ring-2 peer-checked:ring-primary peer-checked:bg-primary/5 hover:bg-surface-container-low">
 <div class="flex flex-col h-full">
 <span class="material-symbols-outlined text-primary mb-4 text-3xl group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">medical_services</span>
-<p class="font-headline font-bold text-lg text-on-background mb-1">I am a Provider</p>
+<p class="font-headline font-bold text-lg text-on-background mb-1">I am a Doctor</p>
 <p class="text-on-secondary-container text-xs leading-relaxed">Manage patients, digital consultations, and practice analytics.</p>
 </div>
 </div>
@@ -166,31 +146,38 @@
 </div>
 </label>
 </div>
-<form class="space-y-6">
+<form id="signupForm" class="space-y-6">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="text-sm font-semibold text-on-surface-variant ml-1">First Name</label>
-<input class="w-full bg-surface-container-lowest border-outline-variant/15 rounded-xl px-4 py-3 text-on-background focus:ring-primary focus:border-primary transition-all duration-200" placeholder="e.g. Jonathan" type="text"/>
+<input id="firstName" class="w-full bg-surface-container-lowest border-outline-variant/15 rounded-xl px-4 py-3 text-on-background focus:ring-primary focus:border-primary transition-all duration-200" placeholder="e.g. Jonathan" type="text"/>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-on-surface-variant ml-1">Last Name</label>
-<input class="w-full bg-surface-container-lowest border-outline-variant/15 rounded-xl px-4 py-3 text-on-background focus:ring-primary focus:border-primary transition-all duration-200" placeholder="e.g. Miller" type="text"/>
+<input id="lastName" class="w-full bg-surface-container-lowest border-outline-variant/15 rounded-xl px-4 py-3 text-on-background focus:ring-primary focus:border-primary transition-all duration-200" placeholder="e.g. Miller" type="text"/>
 </div>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-on-surface-variant ml-1">Email Address</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-xl">mail</span>
-<input class="w-full bg-surface-container-lowest border-outline-variant/15 rounded-xl pl-12 pr-4 py-3 text-on-background focus:ring-primary focus:border-primary transition-all duration-200" placeholder="name@company.com" type="email"/>
+<input id="email" class="w-full bg-surface-container-lowest border-outline-variant/15 rounded-xl pl-12 pr-4 py-3 text-on-background focus:ring-primary focus:border-primary transition-all duration-200" placeholder="name@company.com" type="email"/>
 </div>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-on-surface-variant ml-1">Create Password</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-xl">lock</span>
-<input class="w-full bg-surface-container-lowest border-outline-variant/15 rounded-xl pl-12 pr-12 py-3 text-on-background focus:ring-primary focus:border-primary transition-all duration-200" placeholder="At least 8 characters" type="password"/>
-<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
-<span class="material-symbols-outlined text-xl">visibility</span>
+<input id="password"
+class="w-full pl-12 pr-12 py-3 rounded-xl"
+type="password"
+placeholder="At least 8 characters"/>
+<button id="togglePassword"
+type="button"
+class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary">
+<span id="eyeIcon" class="material-symbols-outlined text-xl">
+visibility
+</span>
 </button>
 </div>
 </div>
@@ -205,21 +192,12 @@
                             Cancel
                         </button>
 <button class="primary-gradient text-white font-headline font-bold px-10 py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center gap-2" type="submit">
-                            Next: Personal Details
+                            Create Account
                             <span class="material-symbols-outlined text-xl">arrow_forward</span>
 </button>
 </div>
 </form>
 <footer class="mt-16 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-outline font-medium">
-<div class="flex items-center gap-6">
-<a class="hover:text-on-background" href="#">Security &amp; Privacy</a>
-<a class="hover:text-on-background" href="#">Accessibility</a>
-<a class="hover:text-on-background" href="#">Contact Support</a>
-</div>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified_user</span>
-<span>SOC2 Type II &amp; HIPAA Certified</span>
-</div>
 </footer>
 </div>
 </section>
@@ -228,4 +206,61 @@
 <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-fixed blur-[120px] rounded-full"></div>
 <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tertiary-fixed blur-[120px] rounded-full"></div>
 </div>
+<script>
+const form = document.getElementById("signupForm");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const role = document.querySelector('input[name="role"]:checked').value;
+
+    if(!firstName || !lastName || !email || !password){
+        alert("Fill all fields");
+        return;
+    }
+
+    fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            password,
+            role
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === "success"){
+            alert("Account created successfully");
+            window.location.href = "login.html";
+        } else {
+            alert("User already exists");
+        }
+    });
+});
+</script>
+<script>
+const passwordInput = document.getElementById("password");
+const toggleBtn = document.getElementById("togglePassword");
+const eyeIcon = document.getElementById("eyeIcon");
+
+toggleBtn.addEventListener("click", function () {
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.textContent = "visibility_off";
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.textContent = "visibility";
+    }
+});
+</script>
 </body></html>

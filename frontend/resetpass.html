@@ -92,7 +92,7 @@
 <header class="w-full px-6 py-8 flex justify-center">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-3xl" data-icon="health_and_safety">health_and_safety</span>
-<span class="font-headline font-extrabold text-2xl tracking-tight text-on-surface">Telehealth Pulse</span>
+<span class="font-headline font-extrabold text-2xl tracking-tight text-on-surface">eDOC</span>
 </div>
 </header>
 <main class="flex-grow flex items-center justify-center px-4 py-12">
@@ -109,32 +109,46 @@
 </div>
 <form class="space-y-6">
 <div class="space-y-2">
-<label class="block text-sm font-semibold text-on-surface-variant ml-1" for="new_password">New Password</label>
+<label class="block text-sm font-semibold text-on-surface-variant ml-1">
+New Password
+</label>
 <div class="relative">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="key">key</span>
-<input class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-outline/50" id="new_password" name="new_password" placeholder="••••••••" type="password"/>
+<span id="icon-new" class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">key</span>
+<input id="new_password"
+class="w-full pl-12 pr-12 py-3.5 bg-surface-container-lowest border rounded-xl"
+type="password" placeholder="••••••••"/>
+<button type="button" id="toggleNew"
+class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary">
+<span id="iconNew" class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
 </div>
 </div>
 <div class="space-y-2">
-<label class="block text-sm font-semibold text-on-surface-variant ml-1" for="confirm_password">Confirm New Password</label>
+<label class="block text-sm font-semibold text-on-surface-variant ml-1">Confirm New Password</label>
 <div class="relative">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="verified_user">verified_user</span>
-<input class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-outline/50" id="confirm_password" name="confirm_password" placeholder="••••••••" type="password"/>
+<span id="icon-confirm" class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">verified_user</span>
+<input id="confirm_password"
+class="w-full pl-12 pr-12 py-3.5 bg-surface-container-lowest border rounded-xl"
+type="password" placeholder="••••••••"/>
+<button type="button" id="toggleConfirm"
+class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary">
+<span id="iconConfirm" class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
 </div>
 </div>
 <div class="bg-surface-container-low rounded-xl p-5 space-y-3">
 <h3 class="text-xs font-bold uppercase tracking-widest text-on-secondary-container/70 mb-1">Security Requirements</h3>
 <div class="grid grid-cols-1 gap-2">
 <div class="flex items-center gap-3 text-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-tertiary text-lg" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span id="icon-length" class="material-symbols-outlined text-lg">radio_button_unchecked</span>
 <span>At least 8 characters long</span>
 </div>
 <div class="flex items-center gap-3 text-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-outline/30 text-lg" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span id="icon-number" class="material-symbols-outlined text-lg">radio_button_unchecked</span>
 <span>Includes at least one number</span>
 </div>
 <div class="flex items-center gap-3 text-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-outline/30 text-lg" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span id="icon-special" class="material-symbols-outlined text-lg">radio_button_unchecked</span>
 <span>Includes a special character (@, #, $)</span>
 </div>
 </div>
@@ -152,15 +166,6 @@
 </div>
 </div>
 </div>
-<div class="mt-6 flex gap-4 items-center bg-tertiary/5 border border-tertiary/10 rounded-xl p-4">
-<div class="flex-shrink-0 w-10 h-10 bg-tertiary/10 rounded-lg flex items-center justify-center text-tertiary">
-<span class="material-symbols-outlined" data-icon="shield_lock">shield_lock</span>
-</div>
-<div>
-<p class="text-xs font-bold text-tertiary uppercase tracking-tight">Security Tip</p>
-<p class="text-sm text-on-surface-variant leading-tight">Avoid using common words or personal info like birthdays.</p>
-</div>
-</div>
 </div>
 </main>
 <footer class="w-full px-6 py-8 text-center">
@@ -170,11 +175,147 @@
 <a class="hover:text-primary transition-colors" href="#">Safety Center</a>
 <a class="hover:text-primary transition-colors" href="#">Contact Support</a>
 </div>
-<p class="text-xs text-outline/40">© 2024 Telehealth Pulse. All rights reserved.</p>
+<p class="text-xs text-outline/40">© 2026 eDOC. All rights reserved.</p>
 </div>
 </footer>
 <div class="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 glass-panel px-6 py-4 rounded-full border border-outline-variant/20 shadow-xl opacity-0 translate-y-4 pointer-events-none">
 <span class="material-symbols-outlined text-tertiary" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
 <span class="text-sm font-semibold text-on-surface">Password updated successfully</span>
 </div>
+<script>
+const form = document.querySelector("form");
+
+const newPass = document.getElementById("new_password");
+const confirmPass = document.getElementById("confirm_password");
+
+const iconNewEye = document.getElementById("iconNew");
+const iconConfirmEye = document.getElementById("iconConfirm");
+
+const iconNew = document.getElementById("icon-new");
+const iconConfirm = document.getElementById("icon-confirm");
+
+const iconLength = document.getElementById("icon-length");
+const iconNumber = document.getElementById("icon-number");
+const iconSpecial = document.getElementById("icon-special");
+
+document.getElementById("toggleNew").onclick = () => {
+    if (newPass.type === "password") {
+        newPass.type = "text";
+        iconNewEye.textContent = "visibility_off";
+    } else {
+        newPass.type = "password";
+        iconNewEye.textContent = "visibility";
+    }
+};
+
+document.getElementById("toggleConfirm").onclick = () => {
+    if (confirmPass.type === "password") {
+        confirmPass.type = "text";
+        iconConfirmEye.textContent = "visibility_off";
+    } else {
+        confirmPass.type = "password";
+        iconConfirmEye.textContent = "visibility";
+    }
+};
+
+function validatePassword() {
+    const value = newPass.value;
+
+    const hasLength = value.length >= 8;
+    const hasNumber = /[0-9]/.test(value);
+    const hasSpecial = /[@#$]/.test(value);
+
+    iconLength.textContent = hasLength ? "check_circle" : "radio_button_unchecked";
+    iconLength.style.color = hasLength ? "green" : "gray";
+
+    iconNumber.textContent = hasNumber ? "check_circle" : "radio_button_unchecked";
+    iconNumber.style.color = hasNumber ? "green" : "gray";
+
+    iconSpecial.textContent = hasSpecial ? "check_circle" : "radio_button_unchecked";
+    iconSpecial.style.color = hasSpecial ? "green" : "gray";
+
+    if (hasLength && hasNumber && hasSpecial) {
+        iconNew.textContent = "check_circle";
+        iconNew.style.color = "green";
+    } else {
+        iconNew.textContent = "key";
+        iconNew.style.color = "gray";
+    }
+
+    return hasLength && hasNumber && hasSpecial;
+}
+
+function checkMatch() {
+    const val1 = newPass.value;
+    const val2 = confirmPass.value;
+
+    if (val2 === "") {
+        iconConfirm.textContent = "verified_user";
+        iconConfirm.style.color = "gray";
+        return false;
+    }
+
+    if (val1 === val2) {
+        iconConfirm.textContent = "check_circle";
+        iconConfirm.style.color = "green";
+        return true;
+    } else {
+        iconConfirm.textContent = "cancel";
+        iconConfirm.style.color = "red";
+        return false;
+    }
+}
+
+newPass.addEventListener("input", () => {
+    validatePassword();
+    checkMatch();
+});
+
+confirmPass.addEventListener("input", checkMatch);
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const newPassword = newPass.value.trim();
+    const confirmPassword = confirmPass.value.trim();
+
+    const isValid = validatePassword();
+    const isMatch = checkMatch();
+
+    if (!isValid) {
+        alert("Password does not meet requirements");
+        return;
+    }
+
+    if (!isMatch) {
+        alert("Passwords do not match");
+        return;
+    }
+
+    const email = localStorage.getItem("resetEmail");
+
+    fetch("http://localhost:3000/reset-password", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            newPassword: newPassword
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === "success"){
+            alert("Password updated successfully");
+
+            localStorage.removeItem("resetEmail");
+
+            window.location.href = "login.html";
+        } else {
+            alert("Update failed");
+        }
+    });
+});
+</script>
 </body></html>

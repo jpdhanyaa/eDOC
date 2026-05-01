@@ -120,12 +120,12 @@
 </div>
 <input class="block w-full pl-10 pr-4 py-3 bg-surface-container-low border-0 rounded-lg text-on-surface placeholder-outline focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all duration-200" id="email" name="email" placeholder="name@clinic.com" required="" type="email"/>
 </div>
-</div><a href="resetpass.html">
-  <button class="w-full brand-gradient text-on-primary font-bold py-3.5 px-6 rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2" type="submit">
-<span>Send Reset Link</span>
+</div>
+<button type="submit"
+class="w-full brand-gradient text-on-primary font-bold py-3.5 px-6 rounded-xl shadow-lg">
+Send Reset Link 
 <span class="material-symbols-outlined text-lg" data-icon="arrow_forward">arrow_forward</span>
 </button>
-</a>
 </form>
 <div class="mt-8 pt-6 border-t border-outline-variant/10">
 <div class="flex flex-col gap-4 text-center">
@@ -139,10 +139,39 @@
 </div>
 </main>
 <footer class="w-full py-5 px-5 text-center">
-<p class="text-xs text-outline font-medium">© 2024 TeleHealth Pulse. All rights reserved. Professional Healthcare Portal.</p>
+<p class="text-xs text-outline font-medium">© 2026 eDOC. All rights reserved. Professional Healthcare Portal.</p>
 </footer>
 <div class="fixed inset-0 -z-10 overflow-hidden">
 <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]"></div>
 <div class="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-tertiary/5 rounded-full blur-[120px]"></div>
 </div>
+<script>
+const form = document.querySelector("form");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();  // ✅ IMPORTANT
+
+    fetch("http://localhost:3000/forgot-password", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === "success"){
+            alert("Reset link sent (demo)");
+
+            localStorage.setItem("resetEmail", email);
+
+            window.location.href = "resetpass.html";
+        } else {
+            alert("Email not found");
+        }
+    });
+});
+</script>
 </body></html>

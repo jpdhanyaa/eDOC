@@ -7,7 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// DB connection
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -23,7 +22,6 @@ db.connect(err => {
     }
 });
 
-// LOGIN API
 app.post("/login", (req, res) => {
     const { email, password, role } = req.body;
 
@@ -48,7 +46,96 @@ app.post("/login", (req, res) => {
     });
 });
 
-// START SERVER
+app.post("/forgot-password", (req, res) => {
+    const { email } = req.body;
+
+    const tables = ["patients", "doctors", "admins"];
+    let found = false;
+
+    const checkNext = (i) => {
+        if (i >= tables.length) {
+            if (found) {
+                return res.json({ status: "success" });
+            } else {
+                return res.json({ status: "fail" });
+            }
+        }
+
+        const sql = `SELECT * FROM ${tables[i]} WHERE email=?`;
+
+        db.query(sql, [email], (err, result) => {
+            if (result && result.length > 0) {
+                found = true;
+                return res.json({ status: "success" });
+            } else {
+                checkNext(i + 1);
+            }
+        });
+    };
+
+    checkNext(0);
+});
+
+app.post("/reset-password", (req, res) => {
+    const { email, newPassword } = req.body;
+
+    const tables = ["patients", "doctors", "admins"];
+
+    const updateNext = (i) => {
+        if (i >= tables.length) {
+            return res.json({ status: "fail" });
+        }
+
+        const checkSql = `SELECT * FROM ${tables[i]} WHERE email=?`;
+
+        db.query(checkSql, [email], (err, result) => {
+            if (result && result.length > 0) {
+
+                const updateSql = `UPDATE ${tables[i]} SET password=? WHERE email=?`;
+
+                db.query(updateSql, [newPassword, email], (err2) => {
+                    if (err2) {
+                        return res.json({ status: "error" });
+                    }
+                    return res.json({ status: "success" });
+                });
+
+            } else {
+                updateNext(i + 1);
+            }
+        });
+    };
+
+    updateNext(0);
+});
+
+app.post("/signup", (req, res) => {
+    const { firstName, lastName, email, password, role } = req.body;
+
+    let table = "";
+
+    if (role === "patient") table = "patients";
+    else if (role === "doctor") table = "doctors";
+
+    const checkSql = `SELECT * FROM ${table} WHERE email=?`;
+
+    db.query(checkSql, [email], (err, result) => {
+        if (result.length > 0) {
+            return res.json({ status: "exists" });
+        }
+
+        const insertSql = `INSERT INTO ${table} (first_name, last_name, email, password) VALUES (?, ?, ?, ?)`;
+
+        db.query(insertSql, [firstName, lastName, email, password], (err2) => {
+            if (err2) {
+                return res.json({ status: "error" });
+            }
+
+            res.json({ status: "success" });
+        });
+    });
+});
+
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
