@@ -136,6 +136,10 @@ app.post("/signup", (req, res) => {
     });
 });
 
+const dashboardRoutes = require('./routes/dashboard')(db)
+
+app.use("/dashboard", dashboardRoutes)
+
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
