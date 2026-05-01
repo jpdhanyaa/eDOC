@@ -27,22 +27,34 @@ app.post("/login", (req, res) => {
 
     let table = "";
 
-    if (role === "Patient") table = "patients";
-    else if (role === "Doctor") table = "doctors";
+    const roleLower = role.toLowerCase();
+
+    if (roleLower === "patient") table = "patients";
+    else if (roleLower === "doctor") table = "doctors";
     else table = "admins";
 
-    const sql = `SELECT * FROM ${table} WHERE email=? AND password=?`;
+    console.log("LOGIN:", email, roleLower);
 
-    db.query(sql, [email, password], (err, result) => {
+    const sql = `SELECT * FROM ${table} WHERE email=?`;
+
+    db.query(sql, [email], (err, result) => {
         if (err) {
+            console.log(err);
             return res.json({ status: "error" });
         }
 
-        if (result.length > 0) {
-            res.json({ status: "success" });
-        } else {
-            res.json({ status: "fail" });
+        if (result.length === 0) {
+            return res.json({ status: "fail" });
         }
+
+        if (result[0].password !== password) {
+            return res.json({ status: "fail" });
+        }
+
+        res.json({
+            status: "success",
+            user: result[0]
+        });
     });
 });
 
@@ -50,22 +62,16 @@ app.post("/forgot-password", (req, res) => {
     const { email } = req.body;
 
     const tables = ["patients", "doctors", "admins"];
-    let found = false;
 
     const checkNext = (i) => {
         if (i >= tables.length) {
-            if (found) {
-                return res.json({ status: "success" });
-            } else {
-                return res.json({ status: "fail" });
-            }
+            return res.json({ status: "fail" });
         }
 
         const sql = `SELECT * FROM ${tables[i]} WHERE email=?`;
 
         db.query(sql, [email], (err, result) => {
             if (result && result.length > 0) {
-                found = true;
                 return res.json({ status: "success" });
             } else {
                 checkNext(i + 1);
@@ -114,8 +120,10 @@ app.post("/signup", (req, res) => {
 
     let table = "";
 
-    if (role === "patient") table = "patients";
-    else if (role === "doctor") table = "doctors";
+    const roleLower = role.toLowerCase();
+
+    if (roleLower === "patient") table = "patients";
+    else if (roleLower === "doctor") table = "doctors";
 
     const checkSql = `SELECT * FROM ${table} WHERE email=?`;
 
@@ -124,21 +132,30 @@ app.post("/signup", (req, res) => {
             return res.json({ status: "exists" });
         }
 
-        const insertSql = `INSERT INTO ${table} (first_name, last_name, email, password) VALUES (?, ?, ?, ?)`;
+        const insertSql = `
+            INSERT INTO ${table} (first_name, last_name, email, password)
+            VALUES (?, ?, ?, ?)
+        `;
 
-        db.query(insertSql, [firstName, lastName, email, password], (err2) => {
+        db.query(insertSql, [firstName, lastName, email, password], (err2, result2) => {
             if (err2) {
                 return res.json({ status: "error" });
             }
-
-            res.json({ status: "success" });
+            res.json({
+                status: "success",
+                user: {
+                    id: result2.insertId,
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email
+                }
+            });
         });
     });
 });
 
-const dashboardRoutes = require('./routes/dashboard')(db)
-
-app.use("/dashboard", dashboardRoutes)
+const dashboardRoutes = require('./routes/dashboard')(db);
+app.use("/patient", dashboardRoutes);
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");

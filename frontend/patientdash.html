@@ -347,18 +347,69 @@
 <span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
 </button>
 <script>
-const user = JSON.parse(localStorage.getItem("user"))
+async function loadDashboard() {
+    try {
+        const storedUser = localStorage.getItem("user");
 
-if(user){
-    document.getElementById("username").innerText = "Welcome back, " + user.name.first_name
+        // ✅ Handle missing or broken data
+        if (!storedUser || storedUser === "undefined") {
+            alert("Please login again");
+            window.location.href = "login.html";
+            return;
+        }
+
+        let user;
+        try {
+            user = JSON.parse(storedUser);
+        } catch (e) {
+            alert("Session corrupted. Please login again");
+            localStorage.clear();
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!user.email) {
+            alert("Invalid user data");
+            window.location.href = "login.html";
+            return;
+        }
+
+        // ✅ Fetch dashboard data
+        const res = await fetch(`http://localhost:3000/patient/${user.email}`);
+        const data = await res.json();
+
+        console.log("DASHBOARD DATA:", data);
+
+        // ✅ Username
+        document.getElementById("username").innerText =
+            "Welcome back, " + (data.user?.first_name || "User");
+
+        // ✅ Appointment
+        if (data.appointment) {
+            document.getElementById("doctorName").innerText =
+                data.appointment.doctor || "N/A";
+
+            const date = new Date(data.appointment.date);
+            document.getElementById("appointmentDate").innerText =
+                isNaN(date) ? "N/A" : date.toDateString();
+
+            document.getElementById("appointmentTime").innerText =
+                data.appointment.time || "N/A";
+
+        } else {
+            document.getElementById("doctorName").innerText =
+                "No appointments yet";
+
+            document.getElementById("appointmentDate").innerText = "-";
+            document.getElementById("appointmentTime").innerText = "-";
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert("Failed to load dashboard");
+    }
 }
 
-const appointment = JSON.parse(localStorage.getItem("appointment"))
-
-if(appointment){
-    document.getElementById("doctorName").innerText = appointment.doctor
-    document.getElementById("appointmentDate").innerText = appointment.date
-    document.getElementById("appointmentTime").innerText = appointment.time
-}
+loadDashboard();
 </script>
 </body></html>

@@ -182,45 +182,54 @@ class="w-full primary-gradient text-on-primary py-4 rounded-xl font-bold text-lg
 </div>
 <script>
 let selectedRole = "Patient";
+
 const buttons = document.querySelectorAll(".role-btn");
 const slider = document.getElementById("slider");
 const passwordInput = document.getElementById("password");
 const toggleBtn = document.getElementById("togglePassword");
 const form = document.getElementById("loginForm");
+
+// Move slider
 function moveSlider(index) {
     const btn = buttons[index];
     slider.style.width = btn.offsetWidth + "px";
     slider.style.left = btn.offsetLeft + "px";
 }
 moveSlider(0);
+
+// Role selection
 buttons.forEach((btn, index) => {
     btn.addEventListener("click", function (e) {
         e.preventDefault();
+
         moveSlider(index);
+
         buttons.forEach(b => {
             b.classList.remove("text-primary", "font-semibold");
             b.classList.add("text-on-surface-variant");
         });
+
         this.classList.add("text-primary", "font-semibold");
         this.classList.remove("text-on-surface-variant");
-        selectedRole = this.innerText;
-        console.log("Selected Role:", selectedRole);
+
+        selectedRole = this.innerText.trim();
     });
 });
+
+// Toggle password
 toggleBtn.addEventListener("click", function () {
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-    } else {
-        passwordInput.type = "password";
-    }
+    passwordInput.type =
+        passwordInput.type === "password" ? "text" : "password";
 });
+
+// Form submit
 form.addEventListener("submit", function(e) {
     e.preventDefault();
 
     const email = document.getElementById("email").value.trim();
     const password = passwordInput.value.trim();
 
-    if(email === "" || password === ""){
+    if (email === "" || password === "") {
         alert("Fill all fields");
         return;
     }
@@ -233,18 +242,24 @@ form.addEventListener("submit", function(e) {
         body: JSON.stringify({
             email: email,
             password: password,
-            role: selectedRole
+            role: selectedRole   // keep same as button text
         })
     })
     .then(res => res.json())
     .then(data => {
+        console.log("LOGIN RESPONSE:", data);
+
         if (data.status === "success") {
 
-            // store login info
-            localStorage.setItem("role", selectedRole);
-            localStorage.setItem("email", email);
+            // ✅ store user properly
+            if (data.user) {
+                localStorage.setItem("user", JSON.stringify(data.user));
+            } else {
+                alert("User data missing from server");
+                return;
+            }
 
-            // redirect
+            // ✅ redirect
             if (selectedRole === "Patient") {
                 window.location.href = "patientdash.html";
             } 
@@ -256,7 +271,7 @@ form.addEventListener("submit", function(e) {
             }
 
         } else {
-            alert("Invalid Credentials");
+            alert("Invalid credentials");
         }
     })
     .catch(err => {
