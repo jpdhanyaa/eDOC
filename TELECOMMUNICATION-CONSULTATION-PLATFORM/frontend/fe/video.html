@@ -155,7 +155,13 @@
 <section class="flex-1 ml-64 p-6 flex flex-col gap-6 bg-surface-container-low">
 <div class="relative flex-1 rounded-3xl overflow-hidden bg-slate-900 shadow-2xl border border-white/5">
 <div class="absolute inset-0 w-full h-full bg-slate-800">
-<img alt="Patient View" class="w-full h-full object-cover opacity-90" data-alt="Close up video call perspective of a senior patient sitting in a brightly lit, comfortable living room, high resolution, soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7Kp4ImglHmOXOGnPuueBw9Kz1JxgU1hBkucPp4KaHyxyIGiwx8Ew3XYeGIYIzX77yhETPx-8xyKf08CeEIT6CvagdOTA4T0bCxXLQDoNpYfb05XgS2glOIrQrfjNYwnqirc9hUyXzGMXe-Gx8vIy9aZqeSFlJKEt87aJWYtHJFXzU7rvI-YMoDYi37LVPoP7eGLeZlU-iEgdAnTJPrfKsMYdquktgUBMt480ivvP5CsQkAJMl7RVWtwSV6m7tqlk1vhKiTKOYjIWk"/>
+  <!-- REMOTE VIDEO: shows the other person's camera -->
+  <video id="remoteVideo" autoplay playsinline class="w-full h-full object-cover opacity-90"></video>
+  <!-- Waiting screen shown until remote stream arrives -->
+  <div id="waitingScreen" class="absolute inset-0 flex flex-col items-center justify-center gap-4">
+    <div class="w-16 h-16 rounded-full border-4 border-white/20 border-t-white/80 animate-spin"></div>
+    <p id="waitingText" class="text-white/70 text-sm font-medium tracking-wide">Waiting for other person to join...</p>
+  </div>
 </div>
 <div class="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
 <div class="bg-black/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 flex items-center gap-3">
@@ -171,10 +177,11 @@
 </div>
 </div>
 <div class="absolute top-6 right-6 w-48 aspect-video rounded-2xl overflow-hidden border-2 border-white/20 shadow-xl bg-slate-800 z-20">
-<img alt="Doctor's self view" class="w-full h-full object-cover" data-alt="Professional doctor in a white coat looking into a webcam in a modern medical office, blue lighting accents, professional atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7K1ag1VQb9EeNPDH67wqQLyNXpP57yAUY0BV1Wr8MjnVW8x1OrG6svYPDeUfpmlaVFyQ3YiitF_je4Cwr4mdCNX5sLl4lhXWUH_Pj778Da6afERDaGJR4qNs5kFtsT6NUk9MNyqRFRWFs0bhDi_JVLDo8ULj91zIYEFl4OzJaHgvA6vG7CAo_TsiqsIoW1GyQZaKrg7xW-Cs-mB8cEwEoo4lQtQO6DKTf_EjEB-o6uy_wybOsbujaUrxyk9PZWlVBr0sh82LoDWcn"/>
-<div class="absolute bottom-2 left-2 bg-black/40 backdrop-blur-sm px-2 py-0.5 rounded-md">
-<span class="text-[10px] text-white font-medium">You (HD)</span>
-</div>
+  <!-- LOCAL VIDEO: your own camera, muted so you don't hear yourself -->
+  <video id="localVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
+  <div class="absolute bottom-2 left-2 bg-black/40 backdrop-blur-sm px-2 py-0.5 rounded-md">
+    <span class="text-[10px] text-white font-medium">You (HD)</span>
+  </div>
 </div>
 <div class="absolute left-6 bottom-32 w-72 bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-white/10 text-white z-10">
 <div class="flex items-center gap-2 mb-3">
@@ -194,26 +201,26 @@
 </div>
 <div class="absolute bottom-0 left-0 right-0 p-8 video-overlay-gradient z-20">
 <div class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl fixed bottom-8 left-1/2 -translate-x-1/2 w-fit min-w-[320px] px-8 py-2 flex gap-8 items-center justify-center rounded-full shadow-[0_-4px_40px_rgba(0,0,0,0.04)] border border-white/20">
-<!-- Mute -->
-<button class="group flex flex-col items-center gap-1 scale-110 active:scale-90 duration-200 transition-all text-slate-600 dark:text-slate-300 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
-<span class="material-symbols-outlined">mic</span>
-<span class="text-[10px] font-bold font-manrope uppercase tracking-widest hidden group-hover:block">Mute</span>
-</button>
-<button class="group flex flex-col items-center gap-1 scale-110 active:scale-90 duration-200 transition-all text-slate-600 dark:text-slate-300 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
-<span class="material-symbols-outlined">videocam</span>
-<span class="text-[10px] font-bold font-manrope uppercase tracking-widest hidden group-hover:block">Video</span>
-</button>
-<button class="group flex flex-col items-center gap-1 scale-110 active:scale-90 duration-200 transition-all text-slate-600 dark:text-slate-300 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
-<span class="material-symbols-outlined">screen_share</span>
-<span class="text-[10px] font-bold font-manrope uppercase tracking-widest hidden group-hover:block">Share</span>
-</button>
-<button class="group flex flex-col items-center gap-1 scale-110 active:scale-90 duration-200 transition-all text-slate-600 dark:text-slate-300 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
-<span class="material-symbols-outlined">fiber_manual_record</span>
-<span class="text-[10px] font-bold font-manrope uppercase tracking-widest hidden group-hover:block text-error">Record</span>
-</button>
-<button class="bg-error text-white rounded-full p-4 shadow-lg shadow-error/20 scale-110 active:scale-90 duration-200 flex items-center justify-center">
-<span class="material-symbols-outlined">call_end</span>
-</button>
+  <!-- Mute -->
+  <button id="muteBtn" class="group flex flex-col items-center gap-1 scale-110 active:scale-90 duration-200 transition-all text-slate-600 dark:text-slate-300 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+    <span id="muteIcon" class="material-symbols-outlined">mic</span>
+    <span class="text-[10px] font-bold font-manrope uppercase tracking-widest hidden group-hover:block">Mute</span>
+  </button>
+  <button id="cameraBtn" class="group flex flex-col items-center gap-1 scale-110 active:scale-90 duration-200 transition-all text-slate-600 dark:text-slate-300 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+    <span id="cameraIcon" class="material-symbols-outlined">videocam</span>
+    <span class="text-[10px] font-bold font-manrope uppercase tracking-widest hidden group-hover:block">Video</span>
+  </button>
+  <button id="shareBtn" class="group flex flex-col items-center gap-1 scale-110 active:scale-90 duration-200 transition-all text-slate-600 dark:text-slate-300 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+    <span class="material-symbols-outlined">screen_share</span>
+    <span class="text-[10px] font-bold font-manrope uppercase tracking-widest hidden group-hover:block">Share</span>
+  </button>
+  <button id="recordBtn" class="group flex flex-col items-center gap-1 scale-110 active:scale-90 duration-200 transition-all text-slate-600 dark:text-slate-300 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+    <span class="material-symbols-outlined">fiber_manual_record</span>
+    <span class="text-[10px] font-bold font-manrope uppercase tracking-widest hidden group-hover:block text-error">Record</span>
+  </button>
+  <button id="endCallBtn" class="bg-error text-white rounded-full p-4 shadow-lg shadow-error/20 scale-110 active:scale-90 duration-200 flex items-center justify-center">
+    <span class="material-symbols-outlined">call_end</span>
+  </button>
 </div>
 </div>
 </div>
@@ -239,4 +246,144 @@
 </div>
 </section>
 </main>
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script>
+  // ── Who am I on this page? ──────────────────────────────────────────────
+  const ME = new URLSearchParams(window.location.search).get("role") || "patient";
+  const backPage = ME === "doctor" ? "livechat_doc.html" : "livechat.html";
+
+  // ── WebRTC state ────────────────────────────────────────────────────────
+  const socket = io("http://localhost:5000");
+  let localStream = null;
+  let peerConnection = null;
+  let isMuted = false;
+  let isCameraOff = false;
+  let offerMade = false; // ✅ prevent duplicate offers
+
+  const iceConfig = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+
+  const localVideo     = document.getElementById("localVideo");
+  const remoteVideo    = document.getElementById("remoteVideo");
+  const waitingScreen  = document.getElementById("waitingScreen");
+  const waitingText    = document.getElementById("waitingText");
+
+  // ── Step 1: Start own camera as soon as page loads ──────────────────────
+  async function initCamera() {
+    try {
+      localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      localVideo.srcObject = localStream;
+
+      // Step 2: Tell the server you joined (server will relay + notify about anyone already present)
+      socket.emit("video-joined", { role: ME });
+      waitingText.textContent = "Camera ready. Waiting for other person...";
+    } catch (err) {
+      waitingText.textContent = "Camera/mic error: " + err.message;
+    }
+  }
+
+  initCamera();
+
+  // ── Step 3: When other person joins (or was already there), patient creates offer ─
+  socket.on("video-joined", async (data) => {
+    if (data.role === ME) return; // ignore own role
+    waitingText.textContent = "Other person joined. Connecting...";
+
+    // ✅ Only patient makes offer, and only once
+    if (ME === "patient" && !offerMade) {
+      offerMade = true;
+      await createPeerConnection();
+      const offer = await peerConnection.createOffer();
+      await peerConnection.setLocalDescription(offer);
+      socket.emit("webrtc-offer", { offer });
+    }
+  });
+
+  // ── WebRTC signaling ────────────────────────────────────────────────────
+  socket.on("webrtc-offer", async ({ offer }) => {
+    if (peerConnection) return; // ✅ ignore if already connected
+    await createPeerConnection();
+    await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+    const answer = await peerConnection.createAnswer();
+    await peerConnection.setLocalDescription(answer);
+    socket.emit("webrtc-answer", { answer });
+  });
+
+  socket.on("webrtc-answer", async ({ answer }) => {
+    if (peerConnection) {
+      await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+    }
+  });
+
+  socket.on("webrtc-ice-candidate", async ({ candidate }) => {
+    if (peerConnection && candidate) {
+      await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+    }
+  });
+
+  async function createPeerConnection() {
+    peerConnection = new RTCPeerConnection(iceConfig);
+
+    // Add your own camera tracks so the other person can see you
+    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+    // When remote stream arrives → show it in the big video
+    peerConnection.ontrack = (event) => {
+      remoteVideo.srcObject = event.streams[0];
+      waitingScreen.style.display = "none"; // hide spinner
+    };
+
+    // Send ICE candidates to the other person via socket
+    peerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        socket.emit("webrtc-ice-candidate", { candidate: event.candidate });
+      }
+    };
+  }
+
+  // ── Button: Mute / Unmute ───────────────────────────────────────────────
+  document.getElementById("muteBtn").addEventListener("click", () => {
+    if (!localStream) return;
+    isMuted = !isMuted;
+    localStream.getAudioTracks().forEach(t => t.enabled = !isMuted);
+    document.getElementById("muteIcon").textContent = isMuted ? "mic_off" : "mic";
+    document.getElementById("muteBtn").classList.toggle("bg-red-100", isMuted);
+    document.getElementById("muteBtn").classList.toggle("text-red-500", isMuted);
+  });
+
+  // ── Button: Camera on / off ─────────────────────────────────────────────
+  document.getElementById("cameraBtn").addEventListener("click", () => {
+    if (!localStream) return;
+    isCameraOff = !isCameraOff;
+    localStream.getVideoTracks().forEach(t => t.enabled = !isCameraOff);
+    document.getElementById("cameraIcon").textContent = isCameraOff ? "videocam_off" : "videocam";
+    document.getElementById("cameraBtn").classList.toggle("bg-red-100", isCameraOff);
+    document.getElementById("cameraBtn").classList.toggle("text-red-500", isCameraOff);
+  });
+
+  // ── Button: End Call ────────────────────────────────────────────────────
+  document.getElementById("endCallBtn").addEventListener("click", () => {
+    socket.emit("call-ended", { role: ME });
+    cleanupAndLeave();
+  });
+
+  // If other person ends the call
+  socket.on("call-ended", () => {
+    cleanupAndLeave();
+  });
+
+  function cleanupAndLeave() {
+    // Stop all camera/mic tracks
+    if (localStream) {
+      localStream.getTracks().forEach(t => t.stop());
+      localStream = null;
+    }
+    // Close peer connection
+    if (peerConnection) {
+      peerConnection.close();
+      peerConnection = null;
+    }
+    // Go back to chat page
+    window.location.href = backPage;
+  }
+</script>
 </body></html>

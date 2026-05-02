@@ -3,7 +3,7 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>eDOC</title>
+<title>eDOC - Doctor</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -116,10 +116,36 @@
 <p class="text-xs text-slate-500 font-medium">ID: #29402-EDOC</p>
 </div>
 <div class="flex flex-col gap-2 mb-8">
-<button class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-slate-200/50 rounded-xl transition-all font-medium text-sm">
-<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
-                    Live Feed
-                </button>
+<button onclick="window.location.href='video.html?role=doctor'" class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-slate-200/50 rounded-xl transition-all font-medium text-sm w-full text-left">
+  <span class="material-symbols-outlined">videocam</span>
+  Live Feed
+</button>
+
+<!-- INCOMING CALL POPUP — shown when patient rings -->
+<div id="incomingCallPopup" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+  <div class="bg-white rounded-3xl shadow-2xl p-8 flex flex-col items-center gap-5 w-80">
+    <!-- Pulsing avatar ring -->
+    <div class="relative flex items-center justify-center">
+      <span class="absolute w-24 h-24 rounded-full bg-blue-400/20 animate-ping"></span>
+      <div class="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center z-10">
+        <span class="material-symbols-outlined text-white text-4xl">person</span>
+      </div>
+    </div>
+    <div class="text-center">
+      <p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-1">Incoming Video Call</p>
+      <p class="font-bold text-slate-800 text-xl font-headline">Patient</p>
+      <p class="text-slate-400 text-sm mt-1">is calling you...</p>
+    </div>
+    <div class="flex gap-4 mt-2 w-full">
+      <button onclick="declineCall()" class="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-bold font-headline text-sm transition-all flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-sm">call_end</span> Decline
+      </button>
+      <button onclick="acceptCall()" class="flex-1 py-3 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold font-headline text-sm transition-all flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-sm">call</span> Accept
+      </button>
+    </div>
+  </div>
+</div>
 <button class="flex items-center gap-3 bg-blue-50 text-blue-700 px-4 py-3 rounded-xl transition-all font-medium text-sm">
 <span class="material-symbols-outlined" data-icon="groups">groups</span>
                     Participants
@@ -156,7 +182,7 @@
 </div>
 <div>
 <p class="text-sm font-semibold text-on-surface">Dr. Elena Rodriguez</p>
-<p class="text-[10px] text-slate-500 font-bold">Primary Physician</p>
+<p class="text-[10px] text-tertiary font-bold">Primary Physician • You</p>
 </div>
 </div>
 </div>
@@ -185,7 +211,7 @@
 <button class="material-symbols-outlined text-slate-400 hover:text-slate-600" data-icon="more_vert">more_vert</button>
 </div>
 </header>
-<div class="flex-1 overflow-y-auto px-8 py-10 space-y-8">
+<div id="chatBox" class="flex-1 overflow-y-auto px-8 py-10 space-y-8">
 <div class="flex justify-center">
 <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 bg-slate-100 px-3 py-1 rounded-full">Today, Oct 24</span>
 </div>
@@ -252,12 +278,12 @@
 <button class="p-3 text-slate-400 hover:text-blue-600 hover:bg-slate-50 rounded-2xl transition-all">
 <span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
 </button>
-<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium text-on-surface px-2" placeholder="Type your message here..." type="text"/>
+<input id="messageInput" class="flex-1 ..." placeholder="Type your message here..." type="text"/>
 <div class="flex items-center gap-1">
 <button class="p-3 text-slate-400 hover:text-blue-600 hover:bg-slate-50 rounded-2xl transition-all">
 <span class="material-symbols-outlined" data-icon="mood">mood</span>
 </button>
-<button class="bg-primary text-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all">
+<button id="sendBtn" class="bg-primary text-white w-12 h-12 rounded-2xl flex items-center justify-center">
 <span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
 </button>
 </div>
@@ -268,4 +294,101 @@
 </main>
 <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-fit min-w-[320px] px-8 py-2 flex gap-8 items-center justify-center z-50 rounded-full bg-white/90 backdrop-blur-2xl shadow-[0_-4px_40px_rgba(0,0,0,0.04)] border border-slate-100/50">
 </div>
+<script src="http://localhost:5000/socket.io/socket.io.js">
+</script>
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script>
+  const socket = io("http://localhost:5000");
+  const input = document.getElementById("messageInput");
+  const sendBtn = document.getElementById("sendBtn");
+  const chatBox = document.getElementById("chatBox");
+
+  const ME = "doctor"; // 👈 This page is the DOCTOR
+
+  const AVATARS = {
+    patient: "https://lh3.googleusercontent.com/aida-public/AB6AXuCFaQl3ejlFeZPQtVXHtV699gq5rGw7xbqInk_Pzb9-zCw-AgyghOomZFJjLuNJKoDkHyUiDqJbp5DQjKTRUVAncHcCo504Zq4AFzLq5YeezpCUL9jkcdAF7ZgD2HzNLNDoqJF_tr3dPrrSQJWaUJHUJSok9firJ8AsuQg5rftQ3XGOv9fc7x6GfB3moNzb1lvzqzk0tJRkGv8xhy1TtdobY_SgQxhybgfyDKcytnSmJQHGDzFuBqkkrlD4CiT5Jj7mjVq5tuioOUOr",
+    doctor: "https://lh3.googleusercontent.com/aida-public/AB6AXuA63FN1piTViH-HWaSMKtEmiKRBDKm0IPkVQSh84a3MUhtxOpzYZaWL5A4-3TK20JNwrkO1K1d_ENxQYi75r_hSFZMUcyfQrbxJaPLlfeLoYmNyUGWvF8wsIpZJx1uJeT4QjL7msN_CTVHrmsR4rCcE12R5jrjn3sekmlIDtjfUbpO_5TV839XJcwr6MKuPm02Id_1x2uTkRZaFOSP99aDM1j_lA6uNAUkefPqlIPc2yD7CLmavlw8zeRdeOrjQ7LDYKc_uRSHzRtMn"
+  };
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function renderMessage(msg) {
+    const isMine = msg.sender === ME; // true = RIGHT side, false = LEFT side
+    const time = msg.time
+      ? new Date(msg.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      : new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+    const wrapper = document.createElement("div");
+    wrapper.className = `flex items-start gap-4 max-w-2xl ${isMine ? "ml-auto flex-row-reverse" : ""}`;
+
+    if (isMine) {
+      // MY message → RIGHT side, BLUE bubble
+      wrapper.innerHTML = `
+        <img alt="me" class="w-8 h-8 rounded-full mt-1 object-cover" src="${AVATARS[ME]}"/>
+        <div class="space-y-1 items-end flex flex-col">
+          <div class="bg-primary text-white p-4 rounded-2xl chat-bubble-doctor shadow-lg shadow-blue-500/10">
+            <p class="text-sm leading-relaxed">${escapeHtml(msg.text)}</p>
+          </div>
+          <div class="flex items-center gap-1 px-1">
+            <p class="text-[10px] text-slate-400 font-medium">${time}</p>
+            <span class="material-symbols-outlined text-[10px] text-tertiary">done_all</span>
+          </div>
+        </div>
+      `;
+    } else {
+      // THEIR message → LEFT side, GREY bubble
+      const other = ME === "doctor" ? "patient" : "doctor";
+      wrapper.innerHTML = `
+        <img alt="them" class="w-8 h-8 rounded-full mt-1 object-cover" src="${AVATARS[other]}"/>
+        <div class="space-y-1">
+          <div class="bg-surface-container-low text-on-surface p-4 rounded-2xl chat-bubble-patient">
+            <p class="text-sm leading-relaxed">${escapeHtml(msg.text)}</p>
+          </div>
+          <p class="text-[10px] text-slate-400 font-medium px-1">${time}</p>
+        </div>
+      `;
+    }
+
+    chatBox.appendChild(wrapper);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // ── Incoming call handling ──────────────────────────────────────────────
+  socket.on("call-ringing", () => {
+    document.getElementById("incomingCallPopup").classList.remove("hidden");
+  });
+
+  socket.on("call-cancelled", () => {
+    document.getElementById("incomingCallPopup").classList.add("hidden");
+  });
+
+  function acceptCall() {
+    document.getElementById("incomingCallPopup").classList.add("hidden");
+    socket.emit("call-accepted");          // tell patient
+    window.location.href = "video.html?role=doctor";
+  }
+
+  function declineCall() {
+    document.getElementById("incomingCallPopup").classList.add("hidden");
+    socket.emit("call-declined");          // tell patient
+  }
+
+  function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+    socket.emit("chat message", { text, sender: ME }); // sends as "doctor"
+    input.value = "";
+  }
+
+  sendBtn.addEventListener("click", sendMessage);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+
+  socket.on("chat message", (msg) => { renderMessage(msg); });
+</script>
 </body></html>
