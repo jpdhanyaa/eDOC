@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Book Appointment | eDOC</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-dim": "#d8dadb",
+          "surface-container-highest": "#e1e3e4",
+          "surface-container-high": "#e6e8e9",
+          "secondary-fixed-dim": "#b4cad6",
+          "on-secondary": "#ffffff",
+          "outline-variant": "#c3c6d6",
+          "on-primary-container": "#ccd8ff",
+          "on-secondary-fixed": "#071e27",
+          "secondary": "#4c616c",
+          "secondary-container": "#cfe6f2",
+          "inverse-primary": "#b2c5ff",
+          "background": "#f8fafb",
+          "tertiary-fixed": "#68fadd",
+          "surface-tint": "#0056d2",
+          "secondary-fixed": "#cfe6f2",
+          "on-primary-fixed-variant": "#0040a1",
+          "primary-fixed-dim": "#b2c5ff",
+          "tertiary": "#005145",
+          "tertiary-container": "#006b5c",
+          "outline": "#737785",
+          "surface-container-lowest": "#ffffff",
+          "surface-container": "#eceeef",
+          "primary-container": "#0056d2",
+          "on-tertiary-container": "#5cf0d4",
+          "primary-fixed": "#dae2ff",
+          "surface-bright": "#f8fafb",
+          "tertiary-fixed-dim": "#44ddc1",
+          "on-primary": "#ffffff",
+          "inverse-on-surface": "#eff1f2",
+          "on-secondary-container": "#526772",
+          "surface-container-low": "#f2f4f5",
+          "on-error": "#ffffff",
+          "on-error-container": "#93000a",
+          "on-surface-variant": "#424654",
+          "on-secondary-fixed-variant": "#354a53",
+          "surface-variant": "#e1e3e4",
+          "on-tertiary": "#ffffff",
+          "inverse-surface": "#2e3132",
+          "on-background": "#191c1d",
+          "surface": "#f8fafb",
+          "on-surface": "#191c1d",
+          "on-tertiary-fixed-variant": "#005145",
+          "on-primary-fixed": "#001847",
+          "error-container": "#ffdad6",
+          "primary": "#0040a1",
+          "error": "#ba1a1a",
+          "on-tertiary-fixed": "#00201a"
+        },
+        fontFamily: {
+          "headline": ["Manrope", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .doctor-card { cursor: pointer; transition: all 0.2s ease; border: 2px solid transparent; }
+  .doctor-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,64,161,0.12); }
+  .doctor-card.selected { border-color: #0040a1; background: #f0f4ff; }
+  .slot-btn { cursor: pointer; transition: all 0.15s ease; }
+  .slot-btn:hover { background: #e8eeff; color: #0040a1; border-color: #0040a1; }
+  .slot-btn.selected { background: #0040a1; color: #fff; border-color: #0040a1; }
+  .slot-btn.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+  .cal-day { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; }
+  .cal-day:hover:not(.past):not(.empty) { background: #e8eeff; color: #0040a1; }
+  .cal-day.selected { background: #0040a1; color: #fff; }
+  .cal-day.past { color: #c3c6d6; cursor: not-allowed; }
+  .cal-day.today { font-weight: 700; color: #0040a1; box-shadow: inset 0 0 0 2px #0040a1; }
+  .cal-day.today.selected { color: #fff; }
+  .cal-day.empty { pointer-events: none; }
+  .step-badge { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; }
+  .step-badge.done { background: #005145; color: #fff; }
+  .step-badge.active { background: #0040a1; color: #fff; }
+  .step-badge.pending { background: #eceeef; color: #737785; }
+</style>
+</head>
+<body class="bg-background text-on-background font-body antialiased">
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-40 bg-white/90 backdrop-blur-xl shadow-sm">
+  <div class="flex justify-between items-center px-6 py-3 max-w-[1200px] mx-auto">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-lg">medical_services</span>
+      </div>
+      <span class="font-headline text-lg font-extrabold text-blue-900">eDOC</span>
+    </div>
+    <a href="patientdash.html" class="flex items-center gap-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+      Back to Dashboard
+    </a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="pt-20 pb-16 min-h-screen">
+  <div class="max-w-[1100px] mx-auto px-6 py-8">
+
+    <!-- Page Title -->
+    <div class="mb-10">
+      <h1 class="text-3xl font-headline font-extrabold text-on-surface mb-1">Book an Appointment</h1>
+      <p class="text-on-surface-variant">Choose a doctor, pick a date, and select an available time slot.</p>
+    </div>
+
+    <!-- Progress Steps -->
+    <div class="flex items-center gap-3 mb-10">
+      <div id="step1badge" class="step-badge active">1</div>
+      <span id="step1label" class="text-sm font-semibold text-primary">Select Doctor</span>
+      <div class="h-px flex-1 bg-outline-variant/40"></div>
+      <div id="step2badge" class="step-badge pending">2</div>
+      <span id="step2label" class="text-sm font-medium text-outline">Pick Date</span>
+      <div class="h-px flex-1 bg-outline-variant/40"></div>
+      <div id="step3badge" class="step-badge pending">3</div>
+      <span id="step3label" class="text-sm font-medium text-outline">Choose Time</span>
+      <div class="h-px flex-1 bg-outline-variant/40"></div>
+      <div id="step4badge" class="step-badge pending">4</div>
+      <span id="step4label" class="text-sm font-medium text-outline">Confirm</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Left Panel: Doctor + Calendar -->
+      <div class="lg:col-span-2 space-y-6">
+
+        <!-- Step 1: Doctor Selection -->
+        <section class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/10 shadow-sm">
+          <h2 class="font-headline font-bold text-lg mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">person_search</span>
+            Select a Doctor
+          </h2>
+          <div id="doctorList" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- Step 2: Date Selection -->
+        <section class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/10 shadow-sm">
+          <h2 class="font-headline font-bold text-lg mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">calendar_month</span>
+            Pick a Date
+          </h2>
+          <!-- Calendar header -->
+          <div class="flex items-center justify-between mb-4">
+            <button id="prevMonth" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+              <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+            </button>
+            <span id="calMonthLabel" class="font-semibold text-on-surface"></span>
+            <button id="nextMonth" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+              <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+            </button>
+          </div>
+          <!-- Day headers -->
+          <div class="grid grid-cols-7 text-center mb-2">
+            <span class="text-[10px] font-bold text-outline uppercase">Su</span>
+            <span class="text-[10px] font-bold text-outline uppercase">Mo</span>
+            <span class="text-[10px] font-bold text-outline uppercase">Tu</span>
+            <span class="text-[10px] font-bold text-outline uppercase">We</span>
+            <span class="text-[10px] font-bold text-outline uppercase">Th</span>
+            <span class="text-[10px] font-bold text-outline uppercase">Fr</span>
+            <span class="text-[10px] font-bold text-outline uppercase">Sa</span>
+          </div>
+          <!-- Calendar grid -->
+          <div id="calGrid" class="grid grid-cols-7 gap-1 text-center"></div>
+          <p id="selectedDateLabel" class="mt-4 text-sm text-on-surface-variant hidden">
+            <span class="material-symbols-outlined text-[16px] align-middle text-primary">event</span>
+            Selected: <span id="selectedDateText" class="font-semibold text-primary"></span>
+          </p>
+        </section>
+
+        <!-- Step 3: Time Slot -->
+        <section class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/10 shadow-sm">
+          <h2 class="font-headline font-bold text-lg mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">schedule</span>
+            Choose a Time Slot
+          </h2>
+          <div id="slotGrid" class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+            <!-- Populated by JS -->
+          </div>
+          <p id="noSlotMsg" class="text-sm text-on-surface-variant hidden">Please select a doctor and date first.</p>
+        </section>
+      </div>
+
+      <!-- Right Panel: Summary & Confirm -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24 bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/10 shadow-sm space-y-5">
+          <h2 class="font-headline font-bold text-lg">Appointment Summary</h2>
+
+          <div id="summaryDoctor" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+            <span class="material-symbols-outlined text-primary">person</span>
+            <div>
+              <p class="text-xs text-on-surface-variant font-medium">Doctor</p>
+              <p id="summDoctorName" class="font-semibold text-on-surface text-sm">Not selected</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+            <span class="material-symbols-outlined text-primary">event</span>
+            <div>
+              <p class="text-xs text-on-surface-variant font-medium">Date</p>
+              <p id="summDate" class="font-semibold text-on-surface text-sm">Not selected</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+            <span class="material-symbols-outlined text-primary">schedule</span>
+            <div>
+              <p class="text-xs text-on-surface-variant font-medium">Time</p>
+              <p id="summTime" class="font-semibold text-on-surface text-sm">Not selected</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+            <span class="material-symbols-outlined text-primary">person_outline</span>
+            <div>
+              <p class="text-xs text-on-surface-variant font-medium">Patient</p>
+              <p id="summPatient" class="font-semibold text-on-surface text-sm">Loading...</p>
+            </div>
+          </div>
+
+          <div id="errorMsg" class="hidden text-xs text-error bg-error-container p-3 rounded-lg"></div>
+
+          <button id="confirmBtn"
+            onclick="confirmBooking()"
+            class="w-full py-4 rounded-xl bg-primary text-white font-extrabold shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0">
+            Confirm Appointment
+          </button>
+
+          <p class="text-[11px] text-center text-on-surface-variant">
+            You can cancel up to 24 hours before your appointment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ─── State ───────────────────────────────────────────────────────────────────
+let selectedDoctor = null;   // { name, specialty }
+let selectedDate   = null;   // "YYYY-MM-DD"
+let selectedSlot   = null;   // "10:30 AM"
+
+let calYear  = new Date().getFullYear();
+let calMonth = new Date().getMonth(); // 0-indexed
+
+// ─── Doctor data ─────────────────────────────────────────────────────────────
+const doctors = [
+    { name: "Dr. Ananya Sharma",   specialty: "General Physician",    icon: "stethoscope" },
+    { name: "Dr. Rohan Mehta",     specialty: "Cardiologist",         icon: "cardiology" },
+    { name: "Dr. Priya Kapoor",    specialty: "Dermatologist",        icon: "dermatology" },
+    { name: "Dr. Suresh Nair",     specialty: "Orthopedic Surgeon",   icon: "orthopedics" },
+    { name: "Dr. Kavya Reddy",     specialty: "Neurologist",          icon: "neurology" },
+    { name: "Dr. Arjun Iyer",      specialty: "Pediatrician",         icon: "pediatrics" },
+];
+
+// ─── Time slots ───────────────────────────────────────────────────────────────
+const slots = [
+    "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM",
+    "11:00 AM", "11:30 AM", "01:30 PM", "02:00 PM",
+    "02:30 PM", "03:00 PM", "04:00 PM", "04:30 PM"
+];
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+window.addEventListener("DOMContentLoaded", () => {
+    renderDoctors();
+    renderCalendar();
+    renderSlots();
+    loadPatientInfo();
+});
+
+function loadPatientInfo() {
+    try {
+        const stored = localStorage.getItem("user");
+        if (stored) {
+            const u = JSON.parse(stored);
+            document.getElementById("summPatient").innerText =
+                (u.first_name || "Patient") + " (" + (u.email || "") + ")";
+        } else {
+            document.getElementById("summPatient").innerText = "Not logged in";
+        }
+    } catch(e) {
+        document.getElementById("summPatient").innerText = "Unknown";
+    }
+}
+
+// ─── Doctors ──────────────────────────────────────────────────────────────────
+function renderDoctors() {
+    const list = document.getElementById("doctorList");
+    list.innerHTML = doctors.map((d, i) => `
+        <div class="doctor-card bg-surface-container-low rounded-xl p-4" onclick="selectDoctor(${i})">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-primary text-[20px]">person</span>
+                </div>
+                <div>
+                    <p class="font-semibold text-sm text-on-surface leading-tight">${d.name}</p>
+                    <p class="text-xs text-on-surface-variant">${d.specialty}</p>
+                </div>
+            </div>
+        </div>
+    `).join("");
+}
+
+function selectDoctor(index) {
+    selectedDoctor = doctors[index];
+    selectedSlot = null;
+
+    document.querySelectorAll(".doctor-card").forEach((el, i) => {
+        el.classList.toggle("selected", i === index);
+    });
+
+    document.getElementById("summDoctorName").innerText = selectedDoctor.name;
+    updateSteps();
+    renderSlots();
+}
+
+// ─── Calendar ─────────────────────────────────────────────────────────────────
+const MONTHS = ["January","February","March","April","May","June",
+                 "July","August","September","October","November","December"];
+
+function renderCalendar() {
+    document.getElementById("calMonthLabel").innerText = MONTHS[calMonth] + " " + calYear;
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+    let html = "";
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+        html += `<div class="cal-day empty"></div>`;
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const dateObj = new Date(calYear, calMonth, d);
+        dateObj.setHours(0,0,0,0);
+        const dateStr = formatDate(calYear, calMonth + 1, d);
+
+        const isPast    = dateObj < today;
+        const isToday   = dateObj.getTime() === today.getTime();
+        const isSel     = dateStr === selectedDate;
+
+        let cls = "cal-day";
+        if (isPast)  cls += " past";
+        if (isToday) cls += " today";
+        if (isSel)   cls += " selected";
+
+        const click = isPast ? "" : `onclick="selectDate('${dateStr}')"`;
+        html += `<div class="${cls}" ${click}>${d}</div>`;
+    }
+
+    document.getElementById("calGrid").innerHTML = html;
+}
+
+document.getElementById("prevMonth").addEventListener("click", () => {
+    if (calMonth === 0) { calMonth = 11; calYear--; }
+    else calMonth--;
+    renderCalendar();
+});
+
+document.getElementById("nextMonth").addEventListener("click", () => {
+    if (calMonth === 11) { calMonth = 0; calYear++; }
+    else calMonth++;
+    renderCalendar();
+});
+
+function selectDate(dateStr) {
+    if (!selectedDoctor) {
+        showError("Please select a doctor first.");
+        return;
+    }
+    selectedDate = dateStr;
+    selectedSlot = null;
+    renderCalendar();
+
+    // Show label
+    const [y, m, d] = dateStr.split("-");
+    const disp = new Date(+y, +m - 1, +d).toLocaleDateString("en-IN", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+    document.getElementById("selectedDateText").innerText = disp;
+    document.getElementById("selectedDateLabel").classList.remove("hidden");
+    document.getElementById("summDate").innerText = disp;
+
+    updateSteps();
+    renderSlots();
+}
+
+// ─── Slots ────────────────────────────────────────────────────────────────────
+function renderSlots() {
+    const grid = document.getElementById("slotGrid");
+    const noMsg = document.getElementById("noSlotMsg");
+
+    if (!selectedDoctor || !selectedDate) {
+        grid.innerHTML = "";
+        noMsg.classList.remove("hidden");
+        return;
+    }
+    noMsg.classList.add("hidden");
+
+    grid.innerHTML = slots.map((slot, i) => {
+        const isSel = slot === selectedSlot;
+        return `
+            <button class="slot-btn border border-outline-variant/30 rounded-lg px-3 py-2.5 text-sm font-medium text-on-surface ${isSel ? 'selected' : ''}"
+                    onclick="selectSlot('${slot}')">
+                ${slot}
+            </button>
+        `;
+    }).join("");
+}
+
+function selectSlot(slot) {
+    selectedSlot = slot;
+    document.getElementById("summTime").innerText = slot;
+    updateSteps();
+    renderSlots();
+    clearError();
+}
+
+// ─── Summary helpers ──────────────────────────────────────────────────────────
+function updateSteps() {
+    const hasDoc  = !!selectedDoctor;
+    const hasDate = !!selectedDate;
+    const hasSlot = !!selectedSlot;
+
+    setStep(1, hasDoc  ? "done" : "active");
+    setStep(2, hasDoc && hasDate  ? "done" : hasDoc ? "active" : "pending");
+    setStep(3, hasDoc && hasDate && hasSlot ? "done" : hasDate ? "active" : "pending");
+    setStep(4, hasDoc && hasDate && hasSlot ? "active" : "pending");
+}
+
+function setStep(n, state) {
+    const badge = document.getElementById(`step${n}badge`);
+    const label = document.getElementById(`step${n}label`);
+    badge.className = `step-badge ${state}`;
+    label.className = `text-sm font-${state === "pending" ? "medium" : "semibold"} ${state === "done" ? "text-tertiary" : state === "active" ? "text-primary" : "text-outline"}`;
+}
+
+// ─── Confirm ──────────────────────────────────────────────────────────────────
+async function confirmBooking() {
+    clearError();
+
+    if (!selectedDoctor) { showError("Please select a doctor."); return; }
+    if (!selectedDate)   { showError("Please pick a date."); return; }
+    if (!selectedSlot)   { showError("Please choose a time slot."); return; }
+
+    let user;
+    try {
+        const stored = localStorage.getItem("user");
+        if (!stored) { showError("Please login first."); window.location.href = "login.html"; return; }
+        user = JSON.parse(stored);
+    } catch(e) {
+        showError("Session corrupted. Please login again.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const btn = document.getElementById("confirmBtn");
+    btn.disabled = true;
+    btn.innerText = "Booking...";
+
+    // Determine session (FN = morning, AN = afternoon)
+    const hour = parseInt(selectedSlot.split(":")[0]);
+    const isPM = selectedSlot.includes("PM");
+    const hour24 = isPM && hour !== 12 ? hour + 12 : hour;
+    const session = hour24 < 12 ? "FN" : "AN";
+
+    try {
+        const res = await fetch("http://localhost:3000/book-appointment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                patientName:  (user.first_name || ""),
+                patientEmail: (user.email || ""),
+                doctorName:   selectedDoctor.name,
+                date:         selectedDate,
+                timeSlot:     selectedSlot,
+                session:      session
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.status === "success") {
+            // Store appointment in localStorage as confirmation
+            localStorage.setItem("lastAppointment", JSON.stringify({
+                doctor: selectedDoctor.name,
+                date:   selectedDate,
+                time:   selectedSlot
+            }));
+            alert(`✅ Appointment booked!\n\nDoctor: ${selectedDoctor.name}\nDate: ${selectedDate}\nTime: ${selectedSlot}\n\nYou can view the status in your dashboard.`);
+            window.location.href = "patientdash.html";
+        } else {
+            showError(data.message || "Booking failed. Please try again.");
+            btn.disabled = false;
+            btn.innerText = "Confirm Appointment";
+        }
+    } catch(err) {
+        console.error("Booking error:", err);
+        showError("Could not reach server. Is the backend running on port 3000?");
+        btn.disabled = false;
+        btn.innerText = "Confirm Appointment";
+    }
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function formatDate(y, m, d) {
+    return `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+}
+
+function showError(msg) {
+    const el = document.getElementById("errorMsg");
+    el.innerText = msg;
+    el.classList.remove("hidden");
+}
+
+function clearError() {
+    document.getElementById("errorMsg").classList.add("hidden");
+}
+</script>
+</body></html>

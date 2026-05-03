@@ -135,7 +135,6 @@
     </div>
     <button class="role-btn flex-1 py-2.5 px-4 z-10 text-primary font-semibold text-sm">Patient</button>
     <button class="role-btn flex-1 py-2.5 px-4 z-10 text-on-surface-variant text-sm">Doctor</button>
-    <button class="role-btn flex-1 py-2.5 px-4 z-10 text-on-surface-variant text-sm">Admin</button>
 </div>
 <form id="loginForm" class="space-y-6">
 <div class="space-y-2">
@@ -181,7 +180,7 @@ class="w-full primary-gradient text-on-primary py-4 rounded-xl font-bold text-lg
 </div>
 </div>
 <script>
-let selectedRole = "Patient";
+let selectedRole = "patient";
 
 const buttons = document.querySelectorAll(".role-btn");
 const slider = document.getElementById("slider");
@@ -212,7 +211,8 @@ buttons.forEach((btn, index) => {
         this.classList.add("text-primary", "font-semibold");
         this.classList.remove("text-on-surface-variant");
 
-        selectedRole = this.innerText.trim();
+        // ✅ store role in lowercase (important)
+        selectedRole = this.innerText.trim().toLowerCase();
     });
 });
 
@@ -242,7 +242,7 @@ form.addEventListener("submit", function(e) {
         body: JSON.stringify({
             email: email,
             password: password,
-            role: selectedRole   // keep same as button text
+            role: selectedRole
         })
     })
     .then(res => res.json())
@@ -251,19 +251,23 @@ form.addEventListener("submit", function(e) {
 
         if (data.status === "success") {
 
-            // ✅ store user properly
+            // ✅ Store only required fields (IMPORTANT)
             if (data.user) {
-                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("user", JSON.stringify({
+                    id: data.user.id,
+                    first_name: data.user.first_name,
+                    email: data.user.email
+                }));
             } else {
                 alert("User data missing from server");
                 return;
             }
 
-            // ✅ redirect
-            if (selectedRole === "Patient") {
+            // ✅ Redirect based on role
+            if (selectedRole === "patient") {
                 window.location.href = "patientdash.html";
             } 
-            else if (selectedRole === "Doctor") {
+            else if (selectedRole === "doctor") {
                 window.location.href = "doctordash.html";
             } 
             else {
