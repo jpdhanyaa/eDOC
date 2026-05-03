@@ -256,7 +256,8 @@ form.addEventListener("submit", function(e) {
                 localStorage.setItem("user", JSON.stringify({
                     id: data.user.id,
                     first_name: data.user.first_name,
-                    email: data.user.email
+                    email: data.user.email,
+                    role: selectedRole
                 }));
             } else {
                 alert("User data missing from server");

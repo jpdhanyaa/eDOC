@@ -1,7 +1,0 @@
-const appointment = {
-    doctorName: selectedDoctorName,
-    date: selectedDate,
-    time: selectedTime
-};
-
-localStorage.setItem("appointment", JSON.stringify(appointment));

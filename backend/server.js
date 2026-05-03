@@ -24,19 +24,13 @@ db.connect(err => {
     console.log("Connected to DB");
 
     // ── Auto-migrate appointments table ──────────────────────────────
-    const migrations = [
-        "ALTER TABLE appointments ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'Booked'",
-        "ALTER TABLE appointments ADD COLUMN IF NOT EXISTS doctor_name VARCHAR(150) DEFAULT NULL",
-        "ALTER TABLE appointments ADD COLUMN IF NOT EXISTS patient_email VARCHAR(200) DEFAULT NULL",
-        "ALTER TABLE appointments ADD COLUMN IF NOT EXISTS time_slot VARCHAR(50) DEFAULT NULL"
-    ];
-    migrations.forEach(sql => {
-        db.query(sql, err => {
-            if (err && !err.message.includes("Duplicate column")) {
-                console.log("Migration warning:", err.message);
-            }
-        });
-    });
+    db.connect(err => {
+    if (err) {
+        console.log("DB error:", err);
+        return;
+    }
+    console.log("Connected to DB");
+});
 });
 
 // ================= LOGIN =================
@@ -264,8 +258,7 @@ app.post("/book-appointment", (req, res) => {
             });
         });
     });
-});
-
+});    
 // ================= PATIENT DASHBOARD =================
 app.get("/patient/:id", (req, res) => {
 
@@ -321,7 +314,66 @@ app.get("/patient/:id", (req, res) => {
         });
     });
 });
+app.get("/doctor/:id", (req, res) => {
 
+    console.log("ID RECEIVED:", id);
+
+db.query("SELECT * FROM doctors", (err, all) => {
+    console.log("ALL DOCTORS:", all);
+});
+
+    const id = req.params.id;
+
+    const doctorQuery = "SELECT * FROM doctors WHERE id = ?";
+
+    db.query(doctorQuery, [id], (err, doctorResult) => {
+
+        if (err) return res.json({ error: err });
+
+        const appointmentQuery = `
+            SELECT 
+                a.id,
+                a.date,
+                a.time,
+                a.status,
+                p.first_name AS patient_name
+            FROM appointments a
+            JOIN patients p ON a.patient_id = p.id
+            WHERE a.doctor_id = ?
+            ORDER BY a.date ASC
+        `;
+
+        db.query(appointmentQuery, [id], (err2, appointmentResult) => {
+
+            if (err2) {
+                console.log(err2);
+                return res.json({ error: "Query error" });
+            }
+
+            res.json({
+                doctor: doctorResult[0],
+                appointments: appointmentResult
+            });
+        });
+
+    });
+});
+app.post("/update-status", (req, res) => {
+
+    const { id, status } = req.body;
+
+    const sql = "UPDATE appointments SET status=? WHERE id=?";
+
+    db.query(sql, [status, id], (err) => {
+
+        if (err) {
+            console.log(err);
+            return res.json({ status: "error" });
+        }
+
+        res.json({ status: "success" });
+    });
+});
 // ================= SERVER =================
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
