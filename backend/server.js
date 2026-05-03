@@ -22,15 +22,6 @@ db.connect(err => {
         return;
     }
     console.log("Connected to DB");
-
-    // ── Auto-migrate appointments table ──────────────────────────────
-    db.connect(err => {
-    if (err) {
-        console.log("DB error:", err);
-        return;
-    }
-    console.log("Connected to DB");
-});
 });
 
 // ================= LOGIN =================
@@ -314,15 +305,16 @@ app.get("/patient/:id", (req, res) => {
         });
     });
 });
+
 app.get("/doctor/:id", (req, res) => {
+
+    const id = req.params.id;
 
     console.log("ID RECEIVED:", id);
 
-db.query("SELECT * FROM doctors", (err, all) => {
-    console.log("ALL DOCTORS:", all);
-});
-
-    const id = req.params.id;
+    db.query("SELECT * FROM doctors", (err, all) => {
+        console.log("ALL DOCTORS:", all);
+    });
 
     const doctorQuery = "SELECT * FROM doctors WHERE id = ?";
 
@@ -358,6 +350,7 @@ db.query("SELECT * FROM doctors", (err, all) => {
 
     });
 });
+
 app.post("/update-status", (req, res) => {
 
     const { id, status } = req.body;
@@ -374,6 +367,7 @@ app.post("/update-status", (req, res) => {
         res.json({ status: "success" });
     });
 });
+
 // ================= SERVER =================
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
